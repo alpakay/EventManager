@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Repositories;
+using Repositories.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<RepositoryContext>(options =>
     sql => sql.MigrationsAssembly("EventManagerApp")
     )
 );
+builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
 
 var app = builder.Build();
 
