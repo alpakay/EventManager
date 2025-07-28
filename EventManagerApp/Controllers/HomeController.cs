@@ -1,21 +1,23 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Contracts;
+using Services.Contracts;
 
 namespace EventManagerApp.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly IRepositoryManager _repositoryManager;
+    private readonly IServiceManager _manager;
 
-    public HomeController(IRepositoryManager repositoryManager)
+    public HomeController(IServiceManager manager)
     {
-        _repositoryManager = repositoryManager;
+        _manager = manager;
     }
 
     public IActionResult Index()
     {
-        var model = _repositoryManager.Event.GetAllEvents(false);
+        var model = _manager.EventService.GetAllEvents(false);
+        var oneEvent = _manager.EventService.GetOneEvent(2, false);
         return View(model);
     }
 

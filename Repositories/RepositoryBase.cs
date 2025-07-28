@@ -1,5 +1,6 @@
 using Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Repositories
 {
@@ -11,6 +12,13 @@ namespace Repositories
         protected RepositoryBase(RepositoryContext context)
         {
             _context = context;
+        }
+
+        public T? FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
+        {
+            return trackChanges
+                ? _context.Set<T>().FirstOrDefault(expression)
+                : _context.Set<T>().AsNoTracking().FirstOrDefault(expression);
         }
 
         public IQueryable<T> GetAll(bool trackChanges)

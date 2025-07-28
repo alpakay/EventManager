@@ -223,3 +223,5 @@ C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventManagerApp.pdb
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventManagerApp.genruntimeconfig.cache
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\ref\EventManagerApp.dll
+C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\Services.dll
+C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\Services.pdb
