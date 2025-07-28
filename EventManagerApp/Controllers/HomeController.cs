@@ -1,20 +1,22 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Repositories.Contracts;
 
 namespace EventManagerApp.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IRepositoryManager _repositoryManager;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IRepositoryManager repositoryManager)
     {
-        _logger = logger;
+        _repositoryManager = repositoryManager;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var model = _repositoryManager.Event.GetAllEvents(false);
+        return View(model);
     }
 
     public IActionResult Privacy()

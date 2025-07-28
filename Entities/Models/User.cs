@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace EventManager.Entities.Models
+namespace Entities.Models
 {
     public class User
     {

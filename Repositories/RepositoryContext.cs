@@ -1,4 +1,4 @@
-﻿using EventManager.Entities.Models;
+﻿using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositories;

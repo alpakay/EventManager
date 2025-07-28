@@ -1,4 +1,4 @@
-namespace EventManager.Entities.Models
+namespace Entities.Models
 {
     public class Participant
     {
