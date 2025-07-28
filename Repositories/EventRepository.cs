@@ -11,5 +11,10 @@ namespace Repositories
         }
 
         public IQueryable<Event> GetAllEvents(bool trackChanges) => GetAll(trackChanges);
+
+        public Event? GetOneEvent(int eventId, bool trackChanges)
+        {
+            return FindByCondition(e => e.EventId.Equals(eventId), trackChanges);
+        }
     }
 }

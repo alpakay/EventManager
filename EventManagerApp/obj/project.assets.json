@@ -1104,6 +1104,20 @@
         "runtime": {
           "bin/placeholder/Repositories.dll": {}
         }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Entities": "1.0.0",
+          "Repositories": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
+        }
       }
     }
   },
@@ -3105,13 +3119,19 @@
       "type": "project",
       "path": "../Repositories/Repositories.csproj",
       "msbuildProject": "../Repositories/Repositories.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../Services/Services.csproj",
+      "msbuildProject": "../Services/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "Entities >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.7",
-      "Repositories >= 1.0.0"
+      "Repositories >= 1.0.0",
+      "Services >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3151,6 +3171,9 @@
             },
             "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj": {
               "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj"
+            },
+            "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj"
             }
           }
         }
