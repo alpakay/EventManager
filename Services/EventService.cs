@@ -13,6 +13,12 @@ namespace Services
             _repositoryManager = repositoryManager;
         }
 
+        public void CreateEvent(Event eventEntity)
+        {
+            _repositoryManager.Event.Create(eventEntity);
+            _repositoryManager.Save();
+        }
+
         public IQueryable<Event> GetAllEvents(bool trackChanges)
         {
             return _repositoryManager.Event.GetAllEvents(trackChanges);

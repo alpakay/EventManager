@@ -14,6 +14,11 @@ namespace Repositories
             _context = context;
         }
 
+        public void Create(T entity)
+        {
+            _context.Set<T>().Add(entity);
+        }
+
         public T? FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
         {
             return trackChanges

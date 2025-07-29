@@ -1,0 +1,23 @@
+@model IEnumerable<User>
+
+<div class="display-6"> Giriş Başarılı </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Birth Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.BirthDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

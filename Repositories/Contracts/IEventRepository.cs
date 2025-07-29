@@ -7,5 +7,8 @@ namespace Repositories.Contracts
     {
         IQueryable<Event> GetAllEvents(bool trackChanges);
         Event? GetOneEvent(int eventId, bool trackChanges);
+
+        void CreateEvent(Event eventEntity);
+
     }
 }
