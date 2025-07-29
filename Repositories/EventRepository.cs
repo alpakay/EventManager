@@ -10,6 +10,8 @@ namespace Repositories
 
         }
 
+        public void CreateEvent(Event eventEntity) => Create(eventEntity);
+
         public IQueryable<Event> GetAllEvents(bool trackChanges) => GetAll(trackChanges);
 
         public Event? GetOneEvent(int eventId, bool trackChanges)

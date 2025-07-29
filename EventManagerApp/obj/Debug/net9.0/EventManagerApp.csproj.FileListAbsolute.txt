@@ -7,6 +7,8 @@ C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.runtimeconfig.json
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.pdb
+C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\AutoMapper.dll
+C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\Humanizer.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\Microsoft.Build.Locator.dll
