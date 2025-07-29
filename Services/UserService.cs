@@ -33,4 +33,15 @@ public class UserService : IUserService
         _repositoryManager.User.CreateUser(user);
         _repositoryManager.Save();
     }
+
+    public int Login(UserLoginDto userLoginDto, bool trackChanges = false)
+    {
+        var user = _repositoryManager.User.GetUserByEmail(userLoginDto.Email, trackChanges);
+        if (user == null || user.Password != userLoginDto.Password)
+        {
+            throw new UnauthorizedAccessException("Invalid login attempt");
+        }
+        return user.UserId;
+        // Additional logic for successful login can be added here
+    }
 }

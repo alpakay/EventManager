@@ -24,6 +24,23 @@ public class UserController : Controller
         return View();
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Login([FromForm] UserLoginDto userLoginDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(userLoginDto);
+        }
+        var result = _manager.UserService.Login(userLoginDto, false);
+        if (result == 0)
+        {
+            ModelState.AddModelError("", "Invalid login attempt");
+            return View(userLoginDto);
+        }
+        return RedirectToAction("Index");
+    }
+
     public IActionResult Register()
     {
         return View();

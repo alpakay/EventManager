@@ -17,4 +17,9 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         return FindByCondition(u => u.UserId.Equals(userId), trackChanges);
     }
+
+    public User? GetUserByEmail(string email, bool trackChanges)
+    {
+        return FindByCondition(u => u.Email.Equals(email), trackChanges);
+    }
 }
