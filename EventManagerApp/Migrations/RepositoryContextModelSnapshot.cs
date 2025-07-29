@@ -17,7 +17,7 @@ namespace EventManagerApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
 
-            modelBuilder.Entity("EventManager.Entities.Models.Category", b =>
+            modelBuilder.Entity("Entities.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace EventManagerApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EventManager.Entities.Models.Event", b =>
+            modelBuilder.Entity("Entities.Models.Event", b =>
                 {
                     b.Property<int>("EventId")
                         .ValueGeneratedOnAdd()
@@ -72,15 +72,9 @@ namespace EventManagerApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MaxParticipants")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("ParticipantCount")
-                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
@@ -100,9 +94,7 @@ namespace EventManagerApp.Migrations
                             Description = "Çfl Halısahası",
                             EndDate = new DateTime(2025, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImgUrl = "https://example.com/image.jpg",
-                            MaxParticipants = 22,
                             Name = "Halısaha",
-                            ParticipantCount = 0,
                             StartDate = new DateTime(2025, 7, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -113,9 +105,7 @@ namespace EventManagerApp.Migrations
                             Description = "Yaz Festivali",
                             EndDate = new DateTime(2025, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImgUrl = "https://example.com/image.jpg",
-                            MaxParticipants = 200,
                             Name = "Müzik Festivali",
-                            ParticipantCount = 0,
                             StartDate = new DateTime(2025, 7, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -126,38 +116,12 @@ namespace EventManagerApp.Migrations
                             Description = "F1 Filmi Açılışı",
                             EndDate = new DateTime(2025, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImgUrl = "https://example.com/image.jpg",
-                            MaxParticipants = 120,
                             Name = "F1 Filmi",
-                            ParticipantCount = 0,
                             StartDate = new DateTime(2025, 7, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
-            modelBuilder.Entity("EventManager.Entities.Models.Participant", b =>
-                {
-                    b.Property<int>("ParticipantId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("JoinedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ParticipantId");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Participants");
-                });
-
-            modelBuilder.Entity("EventManager.Entities.Models.User", b =>
+            modelBuilder.Entity("Entities.Models.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -174,14 +138,18 @@ namespace EventManagerApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EventManager.Entities.Models.Event", b =>
+            modelBuilder.Entity("Entities.Models.Event", b =>
                 {
-                    b.HasOne("EventManager.Entities.Models.Category", "Category")
+                    b.HasOne("Entities.Models.Category", "Category")
                         .WithMany("Events")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -190,34 +158,9 @@ namespace EventManagerApp.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("EventManager.Entities.Models.Participant", b =>
-                {
-                    b.HasOne("EventManager.Entities.Models.Event", null)
-                        .WithMany("Participants")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EventManager.Entities.Models.User", null)
-                        .WithMany("Participants")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EventManager.Entities.Models.Category", b =>
+            modelBuilder.Entity("Entities.Models.Category", b =>
                 {
                     b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("EventManager.Entities.Models.Event", b =>
-                {
-                    b.Navigation("Participants");
-                });
-
-            modelBuilder.Entity("EventManager.Entities.Models.User", b =>
-                {
-                    b.Navigation("Participants");
                 });
 #pragma warning restore 612, 618
         }

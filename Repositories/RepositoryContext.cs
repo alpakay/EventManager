@@ -8,7 +8,6 @@ public class RepositoryContext : DbContext
     public DbSet<Event> Events { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<Participant> Participants { get; set; }
 
     public RepositoryContext(DbContextOptions<RepositoryContext> options)
     : base(options)
@@ -38,8 +37,6 @@ public class RepositoryContext : DbContext
                 ImgUrl = "https://example.com/image.jpg",
                 StartDate = new DateTime(2025, 07, 29, 0, 0, 0),
                 EndDate = new DateTime(2025, 07, 30, 0, 0, 0),
-                ParticipantCount = 0,
-                MaxParticipants = 22,
                 CategoryId = 1
             },
             new Event
@@ -51,8 +48,6 @@ public class RepositoryContext : DbContext
                 ImgUrl = "https://example.com/image.jpg",
                 StartDate = new DateTime(2025, 07, 29, 0, 0, 0),
                 EndDate = new DateTime(2025, 07, 30, 0, 0, 0),
-                ParticipantCount = 0,
-                MaxParticipants = 200,
                 CategoryId = 2
             },
             new Event
@@ -64,8 +59,6 @@ public class RepositoryContext : DbContext
                 ImgUrl = "https://example.com/image.jpg",
                 StartDate = new DateTime(2025, 07, 29, 0, 0, 0),
                 EndDate = new DateTime(2025, 07, 30, 0, 0, 0),
-                ParticipantCount = 0,
-                MaxParticipants = 120,
                 CategoryId = 3
             }
         );

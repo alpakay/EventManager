@@ -6,6 +6,6 @@ namespace Entities.Models
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public DateOnly BirthDate { get; set; } = DateOnly.MinValue;
-        public ICollection<Participant> Participants { get; set; } = new List<Participant>();
+        public string Password { get; set; } = string.Empty;
     }
 }
