@@ -4,5 +4,6 @@ namespace Services.Contracts
     {
         IEventService EventService { get; }
         IUserService UserService { get; }
+        IAuthService AuthService { get; }
     }
 }

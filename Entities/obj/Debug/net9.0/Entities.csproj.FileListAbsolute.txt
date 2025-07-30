@@ -1,4 +1,4 @@
-C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\bin\Debug\net9.0\Entities.deps.json
+c:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\bin\Debug\net9.0\Entities.deps.json
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\bin\Debug\net9.0\Entities.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\bin\Debug\net9.0\Entities.pdb
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\obj\Debug\net9.0\Entities.GeneratedMSBuildEditorConfig.editorconfig
@@ -9,4 +9,4 @@ C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\obj\Debug\net9.0\Entitie
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\obj\Debug\net9.0\Entities.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\obj\Debug\net9.0\refint\Entities.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\obj\Debug\net9.0\Entities.pdb
-C:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\obj\Debug\net9.0\ref\Entities.dll
+c:\Users\ahmet\Desktop\Staj\Proje\EventManager\Entities\obj\Debug\net9.0\ref\Entities.dll

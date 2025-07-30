@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj": {}
+    "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj": {}
   },
   "projects": {
-    "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
+    "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
+        "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\ahmet\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\obj\\",
+        "outputPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -69,14 +69,14 @@
         }
       }
     },
-    "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj": {
+    "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
+        "projectUniqueName": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
         "projectName": "EventManagerApp",
-        "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
+        "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
         "packagesPath": "C:\\Users\\ahmet\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\obj\\",
+        "outputPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -97,8 +97,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
-                "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
+              "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
               },
               "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj": {
                 "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj"
@@ -191,8 +191,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
-                "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
+              "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
               }
             }
           }
@@ -270,8 +270,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
-                "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
+              "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
               },
               "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj": {
                 "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj"
@@ -298,6 +298,14 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.3.0, )"
             }
           },
           "imports": [

@@ -1,4 +1,5 @@
 using Entities.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
@@ -26,19 +27,19 @@ public class UserController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Login([FromForm] UserLoginDto userLoginDto)
+    public async Task<IActionResult> Login([FromForm] UserLoginDto userLoginDto)
     {
         if (!ModelState.IsValid)
         {
             return View(userLoginDto);
         }
-        var result = _manager.UserService.Login(userLoginDto, false);
-        if (result == 0)
+        var result = await _manager.AuthService.LoginAsync(userLoginDto);
+        if (!result.Success)
         {
             ModelState.AddModelError("", "Invalid login attempt");
             return View(userLoginDto);
         }
-        return RedirectToAction("Index", "Home", new { area = "Management", userId = result });
+        return RedirectToAction("Index", "Home", new { area = "Management" });
     }
 
     public IActionResult Register()
@@ -56,6 +57,14 @@ public class UserController : Controller
         }
         _manager.UserService.CreateUser(userRegisterDto);
         return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> Logout()
+    {
+        await _manager.AuthService.LogoutAsync();
+        return RedirectToAction("Login", "User", new { area = "Management" });
     }
 
     public IActionResult Profile([FromRoute] int userId)
