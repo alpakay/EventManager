@@ -3,8 +3,8 @@ C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.staticwebassets.runtime.json
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.staticwebassets.endpoints.json
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.exe
-C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.deps.json
-C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.runtimeconfig.json
+c:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.deps.json
+c:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.runtimeconfig.json
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\EventManagerApp.pdb
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\bin\Debug\net9.0\AutoMapper.dll
@@ -221,9 +221,9 @@ C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventMan.28058E78.Up2Date
+c:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventMan.28058E78.Up2Date
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventManagerApp.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\refint\EventManagerApp.dll
 C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventManagerApp.pdb
-C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventManagerApp.genruntimeconfig.cache
-C:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\ref\EventManagerApp.dll
+c:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\EventManagerApp.genruntimeconfig.cache
+c:\Users\ahmet\Desktop\Staj\Proje\EventManager\EventManagerApp\obj\Debug\net9.0\ref\EventManagerApp.dll

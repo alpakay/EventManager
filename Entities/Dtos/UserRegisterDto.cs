@@ -13,13 +13,14 @@ public class UserRegisterDto
     public required string Email { get; set; }
 
     [Required(ErrorMessage = "Şifre alanı zorunludur.")]
+    [StringLength(30, ErrorMessage = "Şifre en az {2} ve en fazla {1} karakter uzunluğunda olmalıdır.", MinimumLength = 8)]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$", ErrorMessage = "Şifre en az bir büyük harf, bir küçük harf ve bir sayı içermelidir.")]
     public required string Password { get; set; }
 
-    [Required(ErrorMessage = "Şifre tekrar alanı zorunludur.")]
     [Compare("Password", ErrorMessage = "Şifreler uyuşmuyor.")]
-    public required string ConfirmPassword { get; set; }
+    public string? ConfirmPassword { get; set; }
 
     [Required(ErrorMessage = "Doğum tarihi alanı zorunludur.")]
     [DataType(DataType.Date, ErrorMessage = "Geçerli bir tarih giriniz.")]
-    public required DateOnly BirthDate { get; set; }
+    public DateOnly? BirthDate { get; set; }
 }

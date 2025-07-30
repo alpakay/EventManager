@@ -1,20 +1,29 @@
 @model UserLoginDto
 
-<div class="text-center">
-    <div class="display-6">Giriş Yap</div>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Giriş Yap</h2>
+            <form method="post" asp-action="Login" class="form-horizontal">
+
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+                {
+                    <div asp-validation-summary="All" class="alert alert-danger"></div>
+                }
+
+                <div class="form-group my-3">
+                    <label asp-for="Email">Email</label>
+                    <input type="text" class="form-control" asp-for="Email" />
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="Password">Şifre</label>
+                    <input type="password" class="form-control" asp-for="Password" />
+                </div>
+                <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                    <a type="button" class="btn btn-secondary" asp-area="Management" asp-controller="User" asp-action="Register">Kayıt Ol</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-
-<form method="post" asp-action="Login" class="form-horizontal">
-
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <div class="form-group my-3">
-        <label asp-for="Email"></label>
-        <input type="text" class="form-control" asp-for="Email" />
-    </div>
-    <div class="form-group my-3">
-        <label asp-for="Password"></label>
-        <input type="password" class="form-control" asp-for="Password" />
-    </div>
-    <button type="submit" class="btn btn-primary">Giriş Yap</button>
-</form>
