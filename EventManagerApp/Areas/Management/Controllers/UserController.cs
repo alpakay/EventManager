@@ -38,7 +38,7 @@ public class UserController : Controller
             ModelState.AddModelError("", "Invalid login attempt");
             return View(userLoginDto);
         }
-        return RedirectToAction("Index");
+        return RedirectToAction("Index", "Home", new { area = "Management", userId = result });
     }
 
     public IActionResult Register()
@@ -48,7 +48,7 @@ public class UserController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Register([FromForm]UserRegisterDto userRegisterDto)
+    public IActionResult Register([FromForm] UserRegisterDto userRegisterDto)
     {
         if (!ModelState.IsValid)
         {
@@ -56,5 +56,15 @@ public class UserController : Controller
         }
         _manager.UserService.CreateUser(userRegisterDto);
         return RedirectToAction("Index");
+    }
+
+    public IActionResult Profile([FromRoute] int userId)
+    {
+        var user = _manager.UserService.GetOneUser(userId, false);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+        return View("Register", user);
     }
 }
