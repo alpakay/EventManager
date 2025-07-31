@@ -8,4 +8,6 @@ public interface IUserRepository : IRepositoryBase<User>
     User? GetOneUser(int userId, bool trackChanges);
     void CreateUser(User userEntity);
     User? GetUserByEmail(string email, bool trackChanges);
+    void UpdateUser(User userEntity);
+    void DeleteUser(User userEntity);
 }

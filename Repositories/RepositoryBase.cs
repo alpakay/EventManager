@@ -19,6 +19,11 @@ namespace Repositories
             _context.Set<T>().Add(entity);
         }
 
+        public void Delete(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+        }
+
         public T? FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
         {
             return trackChanges
@@ -29,6 +34,11 @@ namespace Repositories
         public IQueryable<T> GetAll(bool trackChanges)
         {
             return trackChanges ? _context.Set<T>() : _context.Set<T>().AsNoTracking();
+        }
+
+        public void Update(T entity)
+        {
+            _context.Set<T>().Update(entity);
         }
     }
 }

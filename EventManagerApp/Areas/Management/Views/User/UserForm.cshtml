@@ -1,10 +1,14 @@
-@model UserRegisterDto
-
+@model UserProfileDto
+@{
+    var title = Model.IsEditMode ? "Profil" : "Kayıt Ol";
+    var buttonText = Model.IsEditMode ? "Güncelle" : "Kayıt Ol";
+    var action = Model.IsEditMode ? "Update" : "Register";
+}
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
         <div class="card-body">
-            <h2 class="card-title text-center mb-4">Kayıt Ol</h2>
-            <form method="post" asp-action="Register">
+            <h2 class="card-title text-center mb-4">@title</h2>
+            <form method="post" asp-action="@action">
                 @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
                 {
                     <div asp-validation-summary="All" class="alert alert-danger"></div>
@@ -31,7 +35,11 @@
                     <input type="date" class="form-control" asp-for="BirthDate" min="1950-01-01" max="2007-12-31" />
                 </div>
                 <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                    <button type="submit" class="btn btn-primary w-50">@buttonText</button>
+                    @if (Model.IsEditMode)
+                    {
+                        <button class="btn btn-danger w-50" method="post" asp-action="Delete">Kullanıcıyı Sil</button>
+                    }
                 </div>
             </form>
         </div>

@@ -3,7 +3,7 @@ using System.Diagnostics.Contracts;
 
 namespace Entities.Dtos;
 
-public class UserRegisterDto
+public class UserProfileDto
 {
     [Required(ErrorMessage = "Ad Soyad alanı zorunludur.")]
     public required string FullName { get; set; }
@@ -23,4 +23,5 @@ public class UserRegisterDto
     [Required(ErrorMessage = "Doğum tarihi alanı zorunludur.")]
     [DataType(DataType.Date, ErrorMessage = "Geçerli bir tarih giriniz.")]
     public DateOnly? BirthDate { get; set; }
+    public bool IsEditMode { get; set; } = false;
 }

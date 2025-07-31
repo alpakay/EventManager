@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
 namespace EventManagerApp.Areas.Management.Controllers
 {
     [Area("Management")]
+    [Authorize]
     public class EventController : Controller
     {
         private readonly IServiceManager _manager;

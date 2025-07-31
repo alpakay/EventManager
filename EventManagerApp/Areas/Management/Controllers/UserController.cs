@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ using Services.Contracts;
 namespace EventManagerApp.Areas.Management.Controllers;
 
 [Area("Management")]
-public class UserController : Controller
+public class UserController : BaseController
 {
 
     private readonly IServiceManager _manager;
@@ -14,6 +15,8 @@ public class UserController : Controller
     {
         _manager = manager;
     }
+
+    [Authorize]
     public IActionResult Index()
     {
         var users = _manager.UserService.GetAllUsers(false);
@@ -36,7 +39,7 @@ public class UserController : Controller
         var result = await _manager.AuthService.LoginAsync(userLoginDto);
         if (!result.Success)
         {
-            ModelState.AddModelError("", "Invalid login attempt");
+            ModelState.AddModelError(string.Empty, result.ErrorMessage);
             return View(userLoginDto);
         }
         return RedirectToAction("Index", "Home", new { area = "Management" });
@@ -44,19 +47,35 @@ public class UserController : Controller
 
     public IActionResult Register()
     {
-        return View();
+        var model = new UserProfileDto
+        {
+            IsEditMode = false,
+            FullName = string.Empty,
+            Email = string.Empty,
+            Password = string.Empty,
+            ConfirmPassword = string.Empty
+        };
+        return View("UserForm", model);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Register([FromForm] UserRegisterDto userRegisterDto)
+    public IActionResult Register([FromForm] UserProfileDto userRegisterDto)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(userRegisterDto);
+            if (!ModelState.IsValid)
+            {
+                return View("UserForm", userRegisterDto);
+            }
+            _manager.UserService.CreateUser(userRegisterDto);
+            return RedirectToAction("Index");
         }
-        _manager.UserService.CreateUser(userRegisterDto);
-        return RedirectToAction("Index");
+        catch (Exception ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return View("UserForm", userRegisterDto);
+        }
     }
 
     [HttpPost]
@@ -67,13 +86,56 @@ public class UserController : Controller
         return RedirectToAction("Login", "User", new { area = "Management" });
     }
 
-    public IActionResult Profile([FromRoute] int userId)
+    [Authorize]
+    public IActionResult Profile()
     {
-        var user = _manager.UserService.GetOneUser(userId, false);
+        var user = _manager.UserService.GetOneUser(CurrentUserId, false);
         if (user == null)
         {
             return NotFound("User not found");
         }
-        return View("Register", user);
+        var userProfile = new UserProfileDto
+        {
+            FullName = user.FullName,
+            Email = user.Email,
+            BirthDate = user.BirthDate,
+            Password = string.Empty,
+            ConfirmPassword = string.Empty,
+            IsEditMode = true
+        };
+        return View("UserForm", userProfile);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    public IActionResult Update([FromForm] UserProfileDto userProfileDto)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                userProfileDto.IsEditMode = true;
+                return View("UserForm", userProfileDto);
+            }
+            _manager.UserService.UpdateUser(CurrentUserId, userProfileDto);
+            return RedirectToAction("Index", "Home", new { area = "Management" });
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            userProfileDto.IsEditMode = true;
+            return View("UserForm", userProfileDto);
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    public async Task<IActionResult> Delete()
+    {
+        _manager.UserService.DeleteUser(CurrentUserId);
+        await _manager.AuthService.LogoutAsync();
+        return RedirectToAction("Index", "Home", new { area = "Management" });
     }
 }

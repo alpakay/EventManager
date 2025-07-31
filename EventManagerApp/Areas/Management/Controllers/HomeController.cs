@@ -17,7 +17,7 @@ public class HomeController : BaseController
     public IActionResult Index()
     {
 
-        var model = _manager.UserService.GetOneUser(CurrentUserId, false);
+        var model = _manager.UserService.GetOneUser(CurrentUserId, true);
         if (model == null)
         {
             return HandleNotFound("User not found");
