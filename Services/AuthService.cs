@@ -42,7 +42,7 @@ public class AuthService : IAuthService
             return new AuthResult
             {
                 Success = false,
-                ErrorMessage = "Invalid email or password."
+                ErrorMessage = "Kayıtlı kullanıcı bulunamadı."
             };
         }
 
@@ -51,7 +51,7 @@ public class AuthService : IAuthService
             return new AuthResult
             {
                 Success = false,
-                ErrorMessage = "Invalid email or password."
+                ErrorMessage = "Geçersiz email veya şifre."
             };
         }
 

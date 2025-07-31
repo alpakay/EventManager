@@ -2342,11 +2342,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj",
+      "projectUniqueName": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj",
+      "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj",
       "packagesPath": "C:\\Users\\ahmet\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\obj\\",
+      "outputPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

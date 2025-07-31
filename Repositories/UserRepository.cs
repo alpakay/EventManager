@@ -11,6 +11,8 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
 
     public void CreateUser(User userEntity) => Create(userEntity);
 
+    public void DeleteUser(User userEntity) => Delete(userEntity);
+
     public IQueryable<User> GetAllUsers(bool trackChanges) => GetAll(trackChanges);
 
     public User? GetOneUser(int userId, bool trackChanges)
@@ -22,4 +24,6 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         return FindByCondition(u => u.Email.Equals(email), trackChanges);
     }
+
+    public void UpdateUser(User userEntity) => Update(userEntity);
 }
