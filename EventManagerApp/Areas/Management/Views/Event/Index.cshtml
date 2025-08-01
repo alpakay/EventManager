@@ -1,4 +1,4 @@
-@model IEnumerable<Event>
+@model IEnumerable<EventShowDto>
 
 <div>
     <a class="btn btn-primary" asp-area="Management" asp-controller="Event" asp-action="Create">Yeni Etkinlik Ekle</a>
@@ -6,9 +6,12 @@
     <thead>
         <tr>
             <th>Etkinlik Adı</th>
-            <th>Etkinlik Tarihi</th>
-            <th>Açıklama</th>
-            <th>Katılımcı Sayısı</th>
+            <th>Başlangıç Tarihi</th>
+            <th>Bitiş Tarihi</th>
+            <th>Ekleyen</th>
+            <th>Oluşturulma Tarihi</th>
+            <th>Durum</th>
+            <th>İşlemler</th>
         </tr>
     </thead>
     <tbody>
@@ -17,7 +20,13 @@
             <tr>
                 <td>@eventItem.Name</td>
                 <td>@eventItem.StartDate.ToString("dd/MM/yyyy")</td>
-                <td>@eventItem.Description</td>
+                <td>@eventItem.EndDate.ToString("dd/MM/yyyy")</td>
+                <td>@eventItem.CreatorName</td>
+                <td>@eventItem.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td>@eventItem.Status</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-area="Management" asp-controller="Event" asp-action="Edit" asp-route-id="@eventItem.EventId">Düzenle</a>
+                </td>
             </tr>
         }
     </table>

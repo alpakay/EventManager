@@ -1,4 +1,5 @@
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
 
 namespace Repositories
@@ -12,7 +13,12 @@ namespace Repositories
 
         public void CreateEvent(Event eventEntity) => Create(eventEntity);
 
-        public IQueryable<Event> GetAllEvents(bool trackChanges) => GetAll(trackChanges);
+        public IQueryable<Event> GetAllEvents(bool trackChanges)
+        {
+            return trackChanges
+                ? _context.Events.Include(e => e.Creator)
+                : _context.Events.Include(e => e.Creator).AsNoTracking();
+        }
 
         public Event? GetOneEvent(int eventId, bool trackChanges)
         {

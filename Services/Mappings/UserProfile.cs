@@ -2,7 +2,7 @@ using AutoMapper;
 using Entities.Dtos;
 using Entities.Models;
 
-namespace Services.Contracts;
+namespace Services.Mappings;
 
 public class UserProfile : Profile
 {

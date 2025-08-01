@@ -1161,8 +1161,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
-              "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
+            "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
+              "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
             }
           }
         }

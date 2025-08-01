@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AyzQW62eXn8=",
+  "dgSpecHash": "o1vP7F6hX9Q=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj",
+  "projectFilePath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ahmet\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.3.0\\microsoft.aspnetcore.authentication.2.3.0.nupkg.sha512",

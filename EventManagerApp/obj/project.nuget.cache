@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PZDSOU4gl1M=",
+  "dgSpecHash": "3VmPxfsg8Qs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
+  "projectFilePath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ahmet\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

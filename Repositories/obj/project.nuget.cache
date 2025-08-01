@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tGUl1N5ZdBc=",
+  "dgSpecHash": "1D31DaH+fIw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj",
+  "projectFilePath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.data.sqlite.core\\9.0.7\\microsoft.data.sqlite.core.9.0.7.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.7\\microsoft.entityframeworkcore.9.0.7.nupkg.sha512",

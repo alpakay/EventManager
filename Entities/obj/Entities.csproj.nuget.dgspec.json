@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {}
+    "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
+    "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
+        "projectUniqueName": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
+        "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\ahmet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\obj\\",
+        "outputPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
