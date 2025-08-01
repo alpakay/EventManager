@@ -6,6 +6,7 @@ namespace Services.Contracts;
 
 public interface IAuthService
 {
+    Task<bool> RegisterAsync(UserProfileDto userRegisterDto);
     Task<AuthResult> LoginAsync(UserLoginDto userLoginDto);
     Task<ClaimsPrincipal> CreateUserPrincipalAsync(User user);
     Task LogoutAsync();

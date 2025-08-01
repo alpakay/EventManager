@@ -6,7 +6,7 @@ namespace EventManagerApp.Areas.Management.Controllers
 {
     [Area("Management")]
     [Authorize]
-    public class EventController : Controller
+    public class EventController : BaseController
     {
         private readonly IServiceManager _manager;
         public EventController(IServiceManager manager)
@@ -15,6 +15,8 @@ namespace EventManagerApp.Areas.Management.Controllers
         }
         public IActionResult Index()
         {
+            ViewData["Title"] = "Etkinlik Listesi";
+            ViewData["User"] = CurrentUserName;
             var model = _manager.EventService.GetAllEvents(true);
             return View(model);
         }

@@ -19,6 +19,8 @@ public class UserController : BaseController
     [Authorize]
     public IActionResult Index()
     {
+        ViewData["Title"] = "Kullanıcı Listesi";
+        ViewData["User"] = CurrentUserName;
         var users = _manager.UserService.GetAllUsers(false);
         return View(users);
     }
@@ -68,7 +70,8 @@ public class UserController : BaseController
             {
                 return View("UserForm", userRegisterDto);
             }
-            _manager.UserService.CreateUser(userRegisterDto);
+            _manager.AuthService.RegisterAsync(userRegisterDto);
+            TempData["SuccessMessage"] = "Kayıt başarılı. Lütfen giriş yapın.";
             return RedirectToAction("Index");
         }
         catch (Exception ex)
@@ -89,6 +92,8 @@ public class UserController : BaseController
     [Authorize]
     public IActionResult Profile()
     {
+        ViewData["Title"] = "Kullanıcı Profili";
+        ViewData["User"] = CurrentUserName;
         var user = _manager.UserService.GetOneUser(CurrentUserId, false);
         if (user == null)
         {

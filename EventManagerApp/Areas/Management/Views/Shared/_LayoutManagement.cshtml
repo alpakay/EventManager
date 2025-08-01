@@ -19,14 +19,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" asp-area="Management" asp-controller="Event" asp-action="Index">Events</a>
-                    <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Pricing</a>
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" asp-area="Management" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                    <a class="nav-link" aria-current="page" asp-area="Management" asp-controller="Event" asp-action="Index">Etkinlikler</a>
+                    <a class="nav-link" asp-area="Management" asp-controller="User" asp-action="Index">Kullanıcılar</a>
                 </div>
                 </div>
                 <div class="nav-item">
-                    <a class="nav-link" asp-area="Management" asp-controller="Home" asp-action="Index" role="button" data-bs-toggle="dropdown" aria-expanded="false">Management</a>
+                    <a class="navbar-brand" asp-area="Management" asp-controller="Home" asp-action="Index" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        @(
+                            string.IsNullOrWhiteSpace(ViewData["User"] as string)
+                            ? "Management"
+                            : ViewData["User"]
+                        )
+                    </a>
                 </div>
             </div>
         </nav>
@@ -42,6 +47,15 @@
             &copy; 2025 - EventManagerApp
         </div>
     </footer>
+    <script>
+        @if (TempData["SuccessMessage"] != null)
+        {
+            var msg = @Html.Raw(Json.Serialize(TempData["SuccessMessage"]));
+            <text>
+                alert('@msg');
+            </text>
+        }
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using AutoMapper;
 using Entities.Dtos;
 using Entities.Models;
@@ -14,12 +16,14 @@ public class AuthService : IAuthService
     private readonly IRepositoryManager _repositoryManager;
     private readonly IMapper _mapper;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IEncryptionService _encryptionService;
 
-    public AuthService(IRepositoryManager repositoryManager, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+    public AuthService(IRepositoryManager repositoryManager, IMapper mapper, IHttpContextAccessor httpContextAccessor, IEncryptionService encryptionService)
     {
         _repositoryManager = repositoryManager;
         _mapper = mapper;
         _httpContextAccessor = httpContextAccessor;
+        _encryptionService = encryptionService;
     }
 
     public async Task<ClaimsPrincipal> CreateUserPrincipalAsync(User user)
@@ -46,7 +50,9 @@ public class AuthService : IAuthService
             };
         }
 
-        if (userLoginDto.Password != user.Password)
+        var decryptedPassword = _encryptionService.Decrypt(user.Password);
+
+        if (userLoginDto.Password != decryptedPassword)
         {
             return new AuthResult
             {
@@ -68,5 +74,21 @@ public class AuthService : IAuthService
     public async Task LogoutAsync()
     {
         await _httpContextAccessor.HttpContext.SignOutAsync("CookieAuth");
+    }
+
+    public async Task<bool> RegisterAsync(UserProfileDto userDto)
+    {
+        if (_repositoryManager.User.GetUserByEmail(userDto.Email, false) != null)
+        {
+            throw new InvalidOperationException("Bu email zaten kayıtlı.");
+        }
+        var cryptedPassword = _encryptionService.Encrypt(userDto.Password);
+
+        var user = _mapper.Map<User>(userDto);
+        user.Password = cryptedPassword;
+
+        _repositoryManager.User.CreateUser(user);
+        _repositoryManager.Save();
+        return true;
     }
 }

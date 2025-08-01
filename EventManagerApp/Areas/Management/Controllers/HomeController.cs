@@ -16,7 +16,8 @@ public class HomeController : BaseController
     [Authorize]
     public IActionResult Index()
     {
-
+        ViewData["Title"] = "Yönetim Paneli";
+        ViewData["User"] = CurrentUserName;
         var model = _manager.UserService.GetOneUser(CurrentUserId, true);
         if (model == null)
         {
