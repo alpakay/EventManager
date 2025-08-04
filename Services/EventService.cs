@@ -1,6 +1,7 @@
 using AutoMapper;
 using Entities.Dtos;
 using Entities.Models;
+using Microsoft.AspNetCore.Http;
 using Repositories.Contracts;
 using Services.Contracts;
 
@@ -10,13 +11,14 @@ namespace Services
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly IMapper _mapper;
+        private readonly IFileService _fileService;
 
-        public EventService(IRepositoryManager repositoryManager, IMapper mapper)
+        public EventService(IRepositoryManager repositoryManager, IMapper mapper, IFileService fileService)
         {
             _repositoryManager = repositoryManager;
             _mapper = mapper;
+            _fileService = fileService;
         }
-
         public void CreateEvent(EventFormDto eventEntity)
         {
             var eventMapped = _mapper.Map<Event>(eventEntity);
@@ -26,13 +28,14 @@ namespace Services
             _repositoryManager.Save();
         }
 
-        public void DeleteEvent(int eventId)
+        public void DeleteEvent(int eventId, string rootPath)
         {
             var eventToDelete = _repositoryManager.Event.GetOneEvent(eventId, false);
             if (eventToDelete == null)
             {
                 throw new KeyNotFoundException($"Event with ID {eventId} not found.");
             }
+            _fileService.DeleteFile(eventToDelete.ImgUrl, rootPath);
             _repositoryManager.Event.Delete(eventToDelete);
             _repositoryManager.Save();
         }
@@ -42,6 +45,16 @@ namespace Services
             var events = _repositoryManager.Event.GetAllEvents(trackChanges);
             var eventsMapped = _mapper.Map<List<EventShowDto>>(events);
             return eventsMapped.AsQueryable();
+        }
+
+        public Event GetEventDetails(int eventId, bool trackChanges)
+        {
+            var eventItem = _repositoryManager.Event.GetOneEvent(eventId, trackChanges);
+            if (eventItem == null)
+            {
+                throw new KeyNotFoundException($"Event with ID {eventId} not found.");
+            }
+            return eventItem;
         }
 
         public EventFormDto? GetOneEvent(int eventId, bool trackChanges)

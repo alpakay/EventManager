@@ -1,4 +1,7 @@
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Entities.Dtos;
+using EventManagerApp.Areas.Management.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
@@ -10,9 +13,11 @@ namespace EventManagerApp.Areas.Management.Controllers
     public class EventController : BaseController
     {
         private readonly IServiceManager _manager;
-        public EventController(IServiceManager manager)
+        private readonly IWebHostEnvironment _env;
+        public EventController(IServiceManager manager, IWebHostEnvironment env)
         {
             _manager = manager;
+            _env = env;
         }
         public IActionResult Index()
         {
@@ -24,22 +29,26 @@ namespace EventManagerApp.Areas.Management.Controllers
 
         public IActionResult Create()
         {
-            return View("EventForm", new EventFormDto
+            return View("EventForm", new EventFormViewModel
             {
-                IsEditMode = false
+                Event = new EventFormDto { IsEditMode = false },
+                ImageFile = null!
             });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(EventFormDto model)
+        public async Task<IActionResult> Create(EventFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("EventForm", model);
             }
-            model.CreatorId = CurrentUserId;
-            _manager.EventService.CreateEvent(model);
+            model.Event.CreatorId = CurrentUserId;
+            var rootPath = _env.WebRootPath;
+            var fileName = await _manager.FileService.UploadFileAsync(model.ImageFile, rootPath);
+            model.Event.ImgUrl = fileName;
+            _manager.EventService.CreateEvent(model.Event);
             TempData["SuccessMessage"] = "Etkinlik başarıyla oluşturuldu.";
             return RedirectToAction("Index");
         }
@@ -48,19 +57,28 @@ namespace EventManagerApp.Areas.Management.Controllers
         {
             var eventEntity = _manager.EventService.GetOneEvent(id, false);
             eventEntity.IsEditMode = true;
-            return View("EventForm", eventEntity);
+            var viewModel = new EventFormViewModel
+            {
+                Event = eventEntity,
+                ImageFile = null!
+            };
+            return View("EventForm", viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromForm] EventFormDto model)
+        public async Task<IActionResult> Edit([FromForm] EventFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("EventForm", model);
             }
-            model.CreatorId = CurrentUserId;
-            _manager.EventService.UpdateEvent(model);
+            var rootPath = _env.WebRootPath;
+            _manager.FileService.DeleteFile(model.Event.ImgUrl, rootPath);
+            var fileName = await _manager.FileService.UploadFileAsync(model.ImageFile, _env.WebRootPath);
+            model.Event.CreatorId = CurrentUserId;
+            model.Event.ImgUrl = fileName;
+            _manager.EventService.UpdateEvent(model.Event);
             TempData["SuccessMessage"] = "Etkinlik başarıyla güncellendi.";
             return RedirectToAction("Index");
         }
@@ -68,7 +86,8 @@ namespace EventManagerApp.Areas.Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _manager.EventService.DeleteEvent(id);
+            var rootPath = _env.WebRootPath;
+            _manager.EventService.DeleteEvent(id, rootPath);
             TempData["SuccessMessage"] = "Etkinlik başarıyla silindi.";
             return RedirectToAction("Index");
         }

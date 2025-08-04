@@ -1,5 +1,6 @@
 using Entities.Dtos;
 using Entities.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Services.Contracts
 {
@@ -7,8 +8,9 @@ namespace Services.Contracts
     {
         IQueryable<EventShowDto> GetAllEvents(bool trackChanges);
         EventFormDto GetOneEvent(int eventId, bool trackChanges);
+        Event GetEventDetails(int eventId, bool trackChanges);
         void CreateEvent(EventFormDto eventEntity);
         void UpdateEvent(EventFormDto eventEntity);
-        void DeleteEvent(int eventId);
+        void DeleteEvent(int eventId, string rootPath);
     }
 }

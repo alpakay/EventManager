@@ -11,7 +11,7 @@ namespace Entities.Dtos
 
         [Required(ErrorMessage = "Açıklama zorunludur.")]
         public string Description { get; set; } = string.Empty;
-        public string ImgUrl { get; set; } = string.Empty;
+        public string? ImgUrl { get; set; }
         [Required(ErrorMessage = "Başlangıç tarihi zorunludur.")]
         public DateTime StartDate { get; set; } = DateTime.MinValue;
         [Required(ErrorMessage = "Bitiş tarihi zorunludur.")]

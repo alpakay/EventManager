@@ -4357,11 +4357,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
+      "projectUniqueName": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
       "projectName": "EventManagerApp",
-      "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
+      "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\EventManagerApp.csproj",
       "packagesPath": "C:\\Users\\ahmet\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\obj\\",
+      "outputPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\EventManagerApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4382,14 +4382,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
-              "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
+            "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj": {
+              "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Entities\\Entities.csproj"
             },
-            "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj": {
-              "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj"
+            "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj": {
+              "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Repositories\\Repositories.csproj"
             },
-            "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj": {
-              "projectPath": "c:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj"
+            "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\ahmet\\Desktop\\Staj\\Proje\\EventManager\\Services\\Services.csproj"
             }
           }
         }
