@@ -9,7 +9,7 @@ namespace Entities.Models
         public string ImgUrl { get; set; } = string.Empty;
         public DateTime StartDate { get; set; } = DateTime.MinValue;
         public DateTime EndDate { get; set; } = DateTime.MinValue;
-        public int CategoryId { get; set; } = 0;
-        public Category Category { get; set; } = null!;
+        public int? CreatorId { get; set; }
+        public User? Creator { get; set; }
     }
 }

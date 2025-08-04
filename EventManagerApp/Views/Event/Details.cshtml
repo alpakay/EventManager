@@ -1,0 +1,30 @@
+@model Event
+
+@{
+    ViewData["Title"] = "Etkinlik Detayı";
+}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">@Model.Name</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <img src="~/uploads/@Model.ImgUrl" alt="Etkinlik Görseli" class="img-fluid rounded shadow" />
+                </div>
+                <div class="col-md-8">
+                    <p><strong>Açıklama:</strong> @Model.Description</p>
+                    <p><strong>Başlangıç Tarihi:</strong> @Model.StartDate.ToString("dd.MM.yyyy HH:mm")</p>
+                    <p><strong>Bitiş Tarihi:</strong> @Model.EndDate.ToString("dd.MM.yyyy HH:mm")</p>
+                    <p><strong>Oluşturulma Tarihi:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+                    <p><strong>Oluşturan:</strong> @(Model.Creator?.FullName ?? "Bilinmiyor")</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <a asp-area="" asp-controller="Event" asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </div>
+</div>

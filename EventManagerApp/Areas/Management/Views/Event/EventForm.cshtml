@@ -1,0 +1,52 @@
+@model EventFormViewModel
+@{
+    var title = Model.Event.IsEditMode ? "Etkinlik Güncelle" : "Yeni Etkinlik";
+    var buttonText = Model.Event.IsEditMode ? "Güncelle" : "Oluştur";
+    var action = Model.Event.IsEditMode ? "Edit" : "Create";
+}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">@title</h2>
+            <form method="post" asp-action="@action" enctype="multipart/form-data">
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+                {
+                    <div asp-validation-summary="All" class="alert alert-danger"></div>
+                }
+                <input type="hidden" asp-for="Event.EventId" />
+                <input type="hidden" asp-for="Event.ImgUrl" />
+                <div class="form-group my-3">
+                    <label asp-for="Event.Name">Etkinlik Adı</label>
+                    <input type="text" class="form-control" asp-for="Event.Name" />
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="Event.Description">Açıklama</label>
+                    <input type="text" class="form-control" asp-for="Event.Description" />
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="Event.StartDate">Başlangıç Tarihi</label>
+                    <input type="datetime-local" class="form-control" asp-for="Event.StartDate"
+                        min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                        max="@DateTime.Now.AddYears(1).ToString("yyyy-MM-ddTHH:mm")" />
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="Event.EndDate">Bitiş Tarihi</label>
+                    <input type="datetime-local" class="form-control" asp-for="Event.EndDate"
+                        min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                        max="@DateTime.Now.AddYears(1).ToString("yyyy-MM-ddTHH:mm")" />
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="ImageFile">Görsel</label>
+                    <input type="file" class="form-control" asp-for="ImageFile" />
+                </div>
+                <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary w-50">@buttonText</button>
+                    @if (Model.Event.IsEditMode)
+                    {
+                        <button class="btn btn-danger w-50" method="post" asp-action="Delete" asp-route-id="@Model.Event.EventId">Sil</button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -6,5 +6,6 @@ namespace Services.Contracts
         IUserService UserService { get; }
         IAuthService AuthService { get; }
         IEncryptionService EncryptionService { get; }
+        IFileService FileService { get; }
     }
 }

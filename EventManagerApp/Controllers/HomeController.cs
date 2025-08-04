@@ -16,9 +16,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var model = _manager.EventService.GetAllEvents(false);
-        var oneEvent = _manager.EventService.GetOneEvent(2, false);
-        return View(model);
+        return View();
     }
 
     public IActionResult Privacy()

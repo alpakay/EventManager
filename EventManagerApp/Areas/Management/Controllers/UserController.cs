@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,7 @@ public class UserController : BaseController
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Register([FromForm] UserProfileDto userRegisterDto)
+    public async Task<IActionResult> Register([FromForm] UserProfileDto userRegisterDto)
     {
         try
         {
@@ -70,7 +71,7 @@ public class UserController : BaseController
             {
                 return View("UserForm", userRegisterDto);
             }
-            _manager.AuthService.RegisterAsync(userRegisterDto);
+            await _manager.AuthService.RegisterAsync(userRegisterDto);
             TempData["SuccessMessage"] = "Kayıt başarılı. Lütfen giriş yapın.";
             return RedirectToAction("Index");
         }
