@@ -33,11 +33,18 @@ public class EventController : Controller
             .Select(e => new
             {
                 id = e.EventId,
-                title = e.Name,
+                title = FormatEventTitle(e.Name, e.StartDate),
                 start = e.StartDate.ToString("yyyy-MM-ddTHH:mm:ss"),
-                end = e.EndDate.ToString("yyyy-MM-ddTHH:mm:ss")
+                end = e.EndDate.ToString("yyyy-MM-ddTHH:mm:ss"),
+                url = Url.Action("Details", "Event", new { Area = "", id = e.EventId }),
+                allDay = false,
             });
 
         return Json(events);
+    }
+
+    private string FormatEventTitle(string name, DateTime startDate)
+    {
+        return $"{startDate:HH:mm} - {name}";
     }
 }
