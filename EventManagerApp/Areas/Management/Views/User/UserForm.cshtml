@@ -35,10 +35,15 @@
                     <input type="date" class="form-control" asp-for="BirthDate" min="1950-01-01" max="2007-12-31" />
                 </div>
                 <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary w-50">@buttonText</button>
+                    <button type="submit" class="btn btn-primary">@buttonText</button>
                     @if (Model.IsEditMode)
                     {
-                        <button class="btn btn-danger w-50" method="post" asp-action="Delete">Kullanıcıyı Sil</button>
+                        <button class="btn btn-danger" method="post" asp-action="Delete">Kullanıcıyı Sil</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger" type="reset">Temizle</button>
+                        <a type="button" class="btn btn-secondary" asp-area="Management" asp-controller="User" asp-action="Login">Giriş Yap</a>
                     }
                 </div>
             </form>
