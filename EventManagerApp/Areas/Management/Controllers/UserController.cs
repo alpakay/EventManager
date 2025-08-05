@@ -35,17 +35,26 @@ public class UserController : BaseController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login([FromForm] UserLoginDto userLoginDto)
     {
-        if (!ModelState.IsValid)
+        try
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userLoginDto);
+            }
+            var result = await _manager.AuthService.LoginAsync(userLoginDto);
+            if (!result.Success)
+            {
+                ModelState.AddModelError(string.Empty, result.ErrorMessage ?? "Unknown error");
+                return View(userLoginDto);
+            }
+            TempData["SuccessMessage"] = "Giriş başarılı.";
+            return RedirectToAction("Index", "Home", new { area = "Management" });
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
             return View(userLoginDto);
         }
-        var result = await _manager.AuthService.LoginAsync(userLoginDto);
-        if (!result.Success)
-        {
-            ModelState.AddModelError(string.Empty, result.ErrorMessage);
-            return View(userLoginDto);
-        }
-        return RedirectToAction("Index", "Home", new { area = "Management" });
     }
 
     public IActionResult Register()
@@ -83,10 +92,12 @@ public class UserController : BaseController
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _manager.AuthService.LogoutAsync();
+        TempData["SuccessMessage"] = "Çıkış başarılı.";
         return RedirectToAction("Login", "User", new { area = "Management" });
     }
 
@@ -125,6 +136,7 @@ public class UserController : BaseController
                 return View("UserForm", userProfileDto);
             }
             _manager.UserService.UpdateUser(CurrentUserId, userProfileDto);
+            TempData["SuccessMessage"] = "Profil güncellendi.";
             return RedirectToAction("Index", "Home", new { area = "Management" });
         }
         catch (Exception ex)
@@ -142,6 +154,7 @@ public class UserController : BaseController
     {
         _manager.UserService.DeleteUser(CurrentUserId);
         await _manager.AuthService.LogoutAsync();
+        TempData["SuccessMessage"] = "Kullanıcı silindi.";
         return RedirectToAction("Index", "Home", new { area = "Management" });
     }
 }

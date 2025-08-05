@@ -22,8 +22,8 @@ namespace Services
         public void CreateEvent(EventFormDto eventEntity)
         {
             var eventMapped = _mapper.Map<Event>(eventEntity);
-            eventMapped.CreatedAt = DateTime.UtcNow;
-            
+            eventMapped.CreatedAt = DateTime.Now;
+
             _repositoryManager.Event.Create(eventMapped);
             _repositoryManager.Save();
         }
@@ -42,7 +42,16 @@ namespace Services
 
         public IQueryable<EventShowDto> GetAllEvents(bool trackChanges)
         {
+            UpdatePastEventsStatus();
             var events = _repositoryManager.Event.GetAllEvents(trackChanges);
+            var eventsMapped = _mapper.Map<List<EventShowDto>>(events);
+            return eventsMapped.AsQueryable();
+        }
+
+        public IQueryable<EventShowDto> GetAllActiveEvents(bool trackChanges)
+        {
+            UpdatePastEventsStatus();
+            var events = _repositoryManager.Event.GetEventsByCondition(e => e.IsActive, trackChanges);
             var eventsMapped = _mapper.Map<List<EventShowDto>>(events);
             return eventsMapped.AsQueryable();
         }
@@ -76,10 +85,19 @@ namespace Services
                 throw new KeyNotFoundException($"Event with ID {eventEntity.EventId} not found.");
             }
 
-
-
             _mapper.Map(eventEntity, eventToUpdate);
             _repositoryManager.Event.Update(eventToUpdate);
+            _repositoryManager.Save();
+        }
+
+        private void UpdatePastEventsStatus()
+        {
+            var pastEvents = _repositoryManager.Event.GetEventsByCondition(e => e.EndDate < DateTime.Now && e.IsActive, false).ToList();
+            foreach (var pastEvent in pastEvents)
+            {
+                pastEvent.IsActive = false;
+                _repositoryManager.Event.Update(pastEvent);
+            }
             _repositoryManager.Save();
         }
     }

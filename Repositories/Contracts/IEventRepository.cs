@@ -7,6 +7,7 @@ namespace Repositories.Contracts
     {
         IQueryable<Event> GetAllEvents(bool trackChanges);
         Event? GetOneEvent(int eventId, bool trackChanges);
+        IQueryable<Event> GetEventsByCondition(Expression<Func<Event, bool>> expression, bool trackChanges);
 
         void CreateEvent(Event eventEntity);
 

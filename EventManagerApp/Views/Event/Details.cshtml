@@ -16,6 +16,7 @@
                 </div>
                 <div class="col-md-8">
                     <p><strong>Açıklama:</strong> @Model.Description</p>
+                    <p>@Html.Raw(Model.LongDescription)</p>
                     <p><strong>Başlangıç Tarihi:</strong> @Model.StartDate.ToString("dd.MM.yyyy HH:mm")</p>
                     <p><strong>Bitiş Tarihi:</strong> @Model.EndDate.ToString("dd.MM.yyyy HH:mm")</p>
                     <p><strong>Oluşturulma Tarihi:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>

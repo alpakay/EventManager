@@ -8,54 +8,96 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EventManagerApp.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body style="background-color: #dce5ee; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column;">
+<body>
+    @{
+        string GetActiveClass(string controller)
+        {
+            return ViewContext.RouteData.Values["Controller"]?.ToString() == controller ? "active" : "";
+        }
+    }
     <header>
-        <nav class="navbar navbar-expand-lg bg-secondary">
+        <nav class="navbar navbar-expand-lg modern-navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventManagerApp </a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-globe"></i>
+                    EventManagerApp
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" asp-area="Management" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
-                    <a class="nav-link" aria-current="page" asp-area="Management" asp-controller="Event" asp-action="Index">Etkinlikler</a>
-                    <a class="nav-link" asp-area="Management" asp-controller="User" asp-action="Index">Kullanıcılar</a>
-                </div>
-                </div>
-                <div class="nav-item">
-                    <a class="navbar-brand" asp-area="Management" asp-controller="Home" asp-action="Index" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        @(
-                            string.IsNullOrWhiteSpace(ViewData["User"] as string)
-                            ? "Management"
-                            : ViewData["User"]
-                        )
-                    </a>
+                    <div class="navbar-nav me-auto">
+                        <a class="nav-link @GetActiveClass("Home")" asp-area="Management" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-home me-2"></i>Ana Sayfa
+                        </a>
+                        <a class="nav-link @GetActiveClass("Event")" asp-area="Management" asp-controller="Event" asp-action="Index">
+                            <i class="fas fa-calendar-check me-2"></i>Etkinlikler
+                        </a>
+                        <a class="nav-link @GetActiveClass("User")" asp-area="Management" asp-controller="User" asp-action="Index">
+                            <i class="fas fa-users me-2"></i>Kullanıcılar
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="user-dropdown" asp-area="Management" asp-controller="Home" asp-action="Index" role="button" aria-expanded="false">
+                            <i class="fas fa-user-circle me-2"></i>
+                            @(
+                                string.IsNullOrWhiteSpace(ViewData["User"] as string)
+                                ? "Yönetim"
+                                : ViewData["User"]
+                            )
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container flex-grow-1 d-flex flex-column">
-        <main role="main" class="pb-3 flex-grow-1">
-            @RenderBody()
-        </main>
+
+    <div class="container-fluid main-container">
+        <div class="content-wrapper">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted mt-auto">
-        <div class="container text-center">
-            &copy; 2025 - EventManagerApp
+    <footer class="modern-footer">
+        <div class="container">
+            <p class="footer-text mb-0">
+                <i class="fas fa-copyright me-1"></i>
+                2025 - EventManagerApp | Modern Event Management Solution
+            </p>
         </div>
     </footer>
+
     <script>
         @if (TempData["SuccessMessage"] != null)
         {
             var msg = @Html.Raw(Json.Serialize(TempData["SuccessMessage"]));
             <text>
-                alert('@msg');
+                // Modern alert replacement
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert success-alert alert-dismissible fade show position-fixed';
+                alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                alertDiv.innerHTML = `
+                    <i class="fas fa-check-circle me-2"></i>
+                    @msg
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                `;
+                document.body.appendChild(alertDiv);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
             </text>
         }
     </script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -11,11 +11,14 @@ namespace Entities.Dtos
 
         [Required(ErrorMessage = "Açıklama zorunludur.")]
         public string Description { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Uzun açıklama zorunludur.")]
+        public string LongDescription { get; set; } = string.Empty;
         public string? ImgUrl { get; set; }
         [Required(ErrorMessage = "Başlangıç tarihi zorunludur.")]
         public DateTime StartDate { get; set; } = DateTime.MinValue;
         [Required(ErrorMessage = "Bitiş tarihi zorunludur.")]
         public DateTime EndDate { get; set; } = DateTime.MinValue;
+        public bool isActive { get; set; } = true;
         public int? CreatorId { get; set; }
         public string CreatorName { get; set; } = string.Empty;
         public bool IsEditMode { get; set; } = false;
