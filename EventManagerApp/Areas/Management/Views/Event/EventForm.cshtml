@@ -4,6 +4,18 @@
     var buttonText = Model.Event.IsEditMode ? "Güncelle" : "Oluştur";
     var action = Model.Event.IsEditMode ? "Edit" : "Create";
 }
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/mye4lf6i9nsyqxo3bt5jd0ve7kponigo6iwnxnh913eayely/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#Event_LongDescription',
+            menubar: false,
+            plugins: 'link lists',
+            toolbar: 'undo redo | bold italic underline | bullist numlist | link',
+            branding: false
+    });
+</script>
+}
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
         <div class="card-body">
@@ -24,6 +36,10 @@
                     <input type="text" class="form-control" asp-for="Event.Description" />
                 </div>
                 <div class="form-group my-3">
+                    <label asp-for="Event.LongDescription">Uzun Açıklama</label>
+                    <textarea asp-for="Event.LongDescription" class="form-control" rows="10"></textarea>
+                </div>
+                <div class="form-group my-3">
                     <label asp-for="Event.StartDate">Başlangıç Tarihi</label>
                     <input type="datetime-local" class="form-control" asp-for="Event.StartDate"
                         min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
@@ -38,6 +54,10 @@
                 <div class="form-group my-3">
                     <label asp-for="ImageFile">Görsel</label>
                     <input type="file" class="form-control" asp-for="ImageFile" />
+                </div>
+                <div class="btn-group my-3 d-flex justify-content-center">
+                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" asp-for="Event.isActive">
+                    <label class="btn btn-outline-primary" for="btncheck1">Aktif</label>
                 </div>
                 <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary w-50">@buttonText</button>

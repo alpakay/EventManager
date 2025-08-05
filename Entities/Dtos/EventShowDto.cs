@@ -5,12 +5,13 @@ namespace Entities.Dtos
         public int EventId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public string LongDescription { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string ImgUrl { get; set; } = string.Empty;
         public int? CreatorId { get; set; }
         public string CreatorName { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
-        public string Status { get; set; } = "Aktif";
+        public bool IsActive { get; set; }
     }
 }

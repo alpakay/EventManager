@@ -12,7 +12,6 @@ public class EventProfile : Profile
         CreateMap<Event, EventFormDto>()
             .ForMember(dest => dest.CreatorName, opt => opt.MapFrom(src => src.Creator != null ? src.Creator.FullName : ""));
         CreateMap<Event, EventShowDto>()
-            .ForMember(dest => dest.CreatorName, opt => opt.MapFrom(src => src.Creator != null ? src.Creator.FullName : ""))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.StartDate > DateTime.Now ? "Aktif" : "Geçmiş"));
+            .ForMember(dest => dest.CreatorName, opt => opt.MapFrom(src => src.Creator != null ? src.Creator.FullName : ""));
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
@@ -20,9 +21,16 @@ namespace Repositories
                 : _context.Events.Include(e => e.Creator).AsNoTracking();
         }
 
+        public IQueryable<Event> GetEventsByCondition(Expression<Func<Event, bool>> expression, bool trackChanges)
+        {
+            return FindByConditionQueryable(expression, trackChanges).Include(e => e.Creator);
+        }
+
         public Event? GetOneEvent(int eventId, bool trackChanges)
         {
-            return FindByCondition(e => e.EventId.Equals(eventId), trackChanges);
+            return FindByConditionQueryable(e => e.EventId == eventId, trackChanges)
+                .Include(e => e.Creator)
+                .SingleOrDefault();
         }
     }
 }

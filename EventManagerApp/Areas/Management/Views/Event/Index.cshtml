@@ -23,7 +23,7 @@
                 <td>@eventItem.EndDate.ToString("dd/MM/yyyy")</td>
                 <td>@eventItem.CreatorName</td>
                 <td>@eventItem.CreatedAt.ToString("dd/MM/yyyy")</td>
-                <td>@eventItem.Status</td>
+                <td>@if(eventItem.IsActive) { <span class="badge bg-success">Aktif</span> } else { <span class="badge bg-danger">Pasif</span> }</td>
                 <td>
                     <a class="btn btn-sm btn-primary" asp-area="Management" asp-controller="Event" asp-action="Edit" asp-route-id="@eventItem.EventId">Düzenle</a>
                 </td>

@@ -12,7 +12,7 @@ public class EventController : Controller
     }
     public IActionResult Index()
     {
-        var events = _serviceManager.EventService.GetAllEvents(false);
+        var events = _serviceManager.EventService.GetAllActiveEvents(false);
         return View(events);
     }
 
@@ -29,7 +29,7 @@ public class EventController : Controller
 
     public IActionResult GetEventsForCalendar()
     {
-        var events = _serviceManager.EventService.GetAllEvents(false)
+        var events = _serviceManager.EventService.GetAllActiveEvents(false)
             .Select(e => new
             {
                 id = e.EventId,
