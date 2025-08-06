@@ -46,7 +46,7 @@ public class UserService : IUserService
 
         user.FullName = userEntity.FullName;
         user.Email = userEntity.Email;
-        user.BirthDate = userEntity.BirthDate!.Value;
+        user.BirthDate = userEntity.BirthDate;
         user.Password = cryptedPassword;
         
         _repositoryManager.User.UpdateUser(user);

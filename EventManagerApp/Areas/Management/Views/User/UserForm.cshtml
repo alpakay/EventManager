@@ -16,8 +16,9 @@
             <h2 class="register-title">@title</h2>
             <p class="register-subtitle">@subtitle</p>
         </div>
-
+        <form id="fakeTokenForm">@Html.AntiForgeryToken()</form>
         <form method="post" asp-action="@action" class="register-form">
+            <input type="hidden" asp-for="@Model.IsEditMode" />
             @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
             {
                 <div class="modern-alert modern-alert-danger">
@@ -69,9 +70,9 @@
             </div>
 
             <div class="form-group-modern">
-                <div class="input-wrapper">
+                <div class="input-wrapper date-wrapper">
                     <i class="fas fa-calendar-alt input-icon"></i>
-                    <input type="date" class="form-control-modern date-input" asp-for="BirthDate" min="1950-01-01" max="2007-12-31" required />
+                    <input type="date" class="form-control-modern date-input has-value" asp-for="BirthDate" min="@DateOnly.FromDateTime(DateTime.Now.AddYears(-100)).ToString("yyyy-MM-dd")" max="@DateOnly.FromDateTime(DateTime.Now.AddYears(-18)).ToString("yyyy-MM-dd")" required />
                     <label asp-for="BirthDate" class="form-label-modern">Doğum Tarihi</label>
                 </div>
             </div>
@@ -129,31 +130,19 @@
             const form = document.createElement('form');
             form.method = 'post';
             form.action = '@Url.Action("Delete")';
+
+            const token = document.querySelector('input[name="__RequestVerificationToken"]');
+            if (token) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = '__RequestVerificationToken';
+                input.value = token.value;
+                form.appendChild(input);
+            }
+
             document.body.appendChild(form);
             form.submit();
         }
     }
-
-    function checkDateInputs() {
-        const dateInputs = document.querySelectorAll('.date-input');
-        dateInputs.forEach(input => {
-            if (input.value) {
-                input.classList.add('has-value');
-            } else {
-                input.classList.remove('has-value');
-            }
-        });
-    }
-
-    // Sayfa yüklendiğinde ve değer değiştiğinde kontrol et
-    document.addEventListener('DOMContentLoaded', function() {
-        checkDateInputs();
-        
-        const dateInputs = document.querySelectorAll('.date-input');
-        dateInputs.forEach(input => {
-            input.addEventListener('change', checkDateInputs);
-            input.addEventListener('input', checkDateInputs);
-        });
-    });
     </script>
 }

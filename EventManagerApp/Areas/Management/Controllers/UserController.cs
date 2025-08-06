@@ -132,7 +132,6 @@ public class UserController : BaseController
         {
             if (!ModelState.IsValid)
             {
-                userProfileDto.IsEditMode = true;
                 return View("UserForm", userProfileDto);
             }
             _manager.UserService.UpdateUser(CurrentUserId, userProfileDto);
@@ -142,7 +141,6 @@ public class UserController : BaseController
         catch (Exception ex)
         {
             ModelState.AddModelError(string.Empty, ex.Message);
-            userProfileDto.IsEditMode = true;
             return View("UserForm", userProfileDto);
         }
     }

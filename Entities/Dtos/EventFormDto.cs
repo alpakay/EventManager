@@ -15,9 +15,9 @@ namespace Entities.Dtos
         public string LongDescription { get; set; } = string.Empty;
         public string? ImgUrl { get; set; }
         [Required(ErrorMessage = "Başlangıç tarihi zorunludur.")]
-        public DateTime StartDate { get; set; } = DateTime.MinValue;
+        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(1).Date;
         [Required(ErrorMessage = "Bitiş tarihi zorunludur.")]
-        public DateTime EndDate { get; set; } = DateTime.MinValue;
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1).Date.AddHours(1);
         public bool isActive { get; set; } = true;
         public int? CreatorId { get; set; }
         public string CreatorName { get; set; } = string.Empty;

@@ -99,6 +99,31 @@
             </text>
         }
     </script>
+    <script>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            var msg = @Html.Raw(Json.Serialize(TempData["ErrorMessage"]));
+            <text>
+                // Modern alert replacement
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert error-alert alert-dismissible fade show position-fixed';
+                alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                alertDiv.innerHTML = `
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    @msg
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                `;
+                document.body.appendChild(alertDiv);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
+            </text>
+        }
+    </script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

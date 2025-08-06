@@ -22,6 +22,6 @@ public class UserProfileDto
 
     [Required(ErrorMessage = "Doğum tarihi alanı zorunludur.")]
     [DataType(DataType.Date, ErrorMessage = "Geçerli bir tarih giriniz.")]
-    public DateOnly? BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; } = DateOnly.FromDateTime(DateTime.Now.AddYears(-18));
     public bool IsEditMode { get; set; } = false;
 }

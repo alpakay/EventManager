@@ -40,17 +40,25 @@ namespace EventManagerApp.Areas.Management.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EventFormViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("EventForm", model);
+                }
+                model.Event.CreatorId = CurrentUserId;
+                var rootPath = _env.WebRootPath;
+                var fileName = await _manager.FileService.UploadFileAsync(model.ImageFile, rootPath);
+                model.Event.ImgUrl = fileName;
+                _manager.EventService.CreateEvent(model.Event);
+                TempData["SuccessMessage"] = "Etkinlik başarıyla oluşturuldu.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
                 return View("EventForm", model);
             }
-            model.Event.CreatorId = CurrentUserId;
-            var rootPath = _env.WebRootPath;
-            var fileName = await _manager.FileService.UploadFileAsync(model.ImageFile, rootPath);
-            model.Event.ImgUrl = fileName;
-            _manager.EventService.CreateEvent(model.Event);
-            TempData["SuccessMessage"] = "Etkinlik başarıyla oluşturuldu.";
-            return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
@@ -69,18 +77,28 @@ namespace EventManagerApp.Areas.Management.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([FromForm] EventFormViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("EventForm", model);
+                }
+                if (model.ImageFile != null)
+                {
+                    var rootPath = _env.WebRootPath;
+                    var fileName = await _manager.FileService.UploadFileAsync(model.ImageFile, _env.WebRootPath);
+                    _manager.FileService.DeleteFile(model.Event.ImgUrl, rootPath);
+                    model.Event.ImgUrl = fileName;
+                }
+                _manager.EventService.UpdateEvent(model.Event);
+                TempData["SuccessMessage"] = "Etkinlik başarıyla güncellendi.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
                 return View("EventForm", model);
             }
-            var rootPath = _env.WebRootPath;
-            _manager.FileService.DeleteFile(model.Event.ImgUrl, rootPath);
-            var fileName = await _manager.FileService.UploadFileAsync(model.ImageFile, _env.WebRootPath);
-            model.Event.CreatorId = CurrentUserId;
-            model.Event.ImgUrl = fileName;
-            _manager.EventService.UpdateEvent(model.Event);
-            TempData["SuccessMessage"] = "Etkinlik başarıyla güncellendi.";
-            return RedirectToAction("Index");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

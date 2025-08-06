@@ -40,9 +40,10 @@ public class FileService : IFileService
         var filePath = Path.Combine(rootPath, "uploads", fileName);
         if (!File.Exists(filePath))
         {
-            throw new FileNotFoundException("Dosya bulunamadı.", filePath);
+            return;
         }
 
         File.Delete(filePath);
+        return;
     }
 }
