@@ -1,24 +1,121 @@
 @model User
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Hoş geldiniz, <strong>@Model.FullName</strong></h3>
-                    <p class="text-muted">Lütfen aşağıdaki işlemlerden birini seçin:</p>
+<div class="dashboard-container">
+    <div class="welcome-section">
+        <div class="welcome-content">
+            <div class="user-avatar-large">
+                @Model.FullName.Substring(0, 1).ToUpper()
+            </div>
+            <div class="welcome-text">
+                <h1 class="welcome-title">Hoş geldiniz,</h1>
+                <h2 class="user-name">@Model.FullName</h2>
+                <p class="welcome-subtitle">Size özel yönetim paneline hoş geldiniz</p>
+            </div>
+        </div>
+        <div class="welcome-decoration">
+            <div class="decoration-circle circle-1"></div>
+            <div class="decoration-circle circle-2"></div>
+            <div class="decoration-circle circle-3"></div>
+        </div>
+    </div>
 
-                    <div class="d-grid gap-3 mt-4">
-                        <a asp-controller="User" asp-action="Profile" class="btn btn-outline-primary btn-lg">Profil Sayfam</a>
-                        <a asp-area="Management" asp-controller="Event" asp-action="Index" class="btn btn-outline-success btn-lg">
-                            Etkinlik Yönetimi
-                        </a>
-                        <form asp-controller="User" asp-action="Logout" method="post">
-                            <button type="submit" class="btn btn-outline-danger btn-lg">Güvenli Çıkış</button>
-                        </form>
+    <div class="dashboard-cards">
+        <div class="dashboard-card profile-card">
+            <div class="card-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Profil Yönetimi</h3>
+                <p class="card-description">Kişisel bilgilerinizi görüntüleyin ve güncelleyin</p>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-envelope me-2"></i>
+                        <span>@Model.Email</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-calendar me-2"></i>
+                        <span>@Model.BirthDate.ToString("dd/MM/yyyy")</span>
                     </div>
                 </div>
             </div>
+            <div class="card-action">
+                <a asp-controller="User" asp-action="Profile" class="btn-card btn-primary-card">
+                    <i class="fas fa-arrow-right me-2"></i>
+                    Profil Sayfam
+                </a>
+            </div>
+        </div>
+
+        <div class="dashboard-card events-card">
+            <div class="card-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Etkinlik Yönetimi</h3>
+                <p class="card-description">Etkinlikleri oluşturun, düzenleyin ve yönetin</p>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        <span>Yeni etkinlik oluştur</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-list me-2"></i>
+                        <span>Mevcut etkinlikleri yönet</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action">
+                <a asp-area="Management" asp-controller="Event" asp-action="Index" class="btn-card btn-success-card">
+                    <i class="fas fa-arrow-right me-2"></i>
+                    Etkinlik Yönetimi
+                </a>
+            </div>
+        </div>
+
+        @* <div class="dashboard-card users-card">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Kullanıcı Yönetimi</h3>
+                <p class="card-description">Sistem kullanıcılarını görüntüleyin ve yönetin</p>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-user-plus me-2"></i>
+                        <span>Yeni kullanıcı ekle</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-user-cog me-2"></i>
+                        <span>Kullanıcıları yönet</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action">
+                <a asp-area="Management" asp-controller="User" asp-action="Index" class="btn-card btn-info-card">
+                    <i class="fas fa-arrow-right me-2"></i>
+                    Kullanıcı Yönetimi
+                </a>
+            </div>
+        </div> *@
+    </div>
+
+    <div class="logout-section">
+        <div class="logout-card">
+            <div class="logout-content">
+                <div class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <div class="logout-text">
+                    <h4>Güvenli Çıkış</h4>
+                    <p>Oturumunuzu güvenli bir şekilde sonlandırın</p>
+                </div>
+            </div>
+            <form asp-controller="User" asp-action="Logout" method="post" class="logout-form">
+                <button type="submit" class="btn-logout" onclick="return confirm('Çıkış yapmak istediğinizden emin misiniz?')">
+                    <i class="fas fa-power-off me-2"></i>
+                    Güvenli Çıkış
+                </button>
+            </form>
         </div>
     </div>
 </div>

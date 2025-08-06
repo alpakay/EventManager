@@ -1,23 +1,88 @@
 @model IEnumerable<User>
 
-<table class="table table-striped">
-    <thead>
-        <tr><th class="text-center" colspan="3">Kullanıcılar</th></tr>
-        <tr>
-            <th>Ad Soyad</th>
-            <th>Email</th>
-            <th>Doğum Tarihi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.FullName</td>
-                <td>@user.Email</td>
-                <td>@user.BirthDate.ToShortDateString()</td>
-            </tr>
-        }
-    </tbody>
+<div class="users-container">
+    <div class="users-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="header-text">
+                <h2 class="users-title">Kullanıcılar</h2>
+                <p class="users-subtitle">Sistemdeki tüm kullanıcıları görüntüleyin</p>
+            </div>
+        </div>
+        <div class="header-actions">
+        </div>
+    </div>
 
-</table>
+    <div class="table-container">
+        <div class="table-wrapper">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="th-content">
+                                <i class="fas fa-user me-2"></i>
+                                Ad Soyad
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th-content">
+                                <i class="fas fa-envelope me-2"></i>
+                                Email
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th-content">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                Doğum Tarihi
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var user in Model)
+                        {
+                            <tr class="table-row">
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">
+                                            @user.FullName.Substring(0, 1).ToUpper()
+                                        </div>
+                                        <span class="user-names">@user.FullName</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="email-cell">
+                                        <i class="fas fa-envelope email-icon"></i>
+                                        <span class="email-text">@user.Email</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-calendar date-icon"></i>
+                                        <span class="date-text">@user.BirthDate.ToString("dd.MM.yyyy")</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                <div class="empty-content">
+                                    <i class="fas fa-users-slash empty-icon"></i>
+                                    <h3 class="empty-title">Henüz kullanıcı yok</h3>
+                                    <p class="empty-text">Sisteme ilk kullanıcıyı eklemek için yukarıdaki butonu kullanın.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

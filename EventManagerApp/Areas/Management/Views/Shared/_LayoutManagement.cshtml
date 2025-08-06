@@ -10,14 +10,9 @@
     <link rel="stylesheet" href="~/EventManagerApp.styles.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-    @{
-        string GetActiveClass(string controller)
-        {
-            return ViewContext.RouteData.Values["Controller"]?.ToString() == controller ? "active" : "";
-        }
-    }
     <header>
         <nav class="navbar navbar-expand-lg modern-navbar">
             <div class="container-fluid">
@@ -67,10 +62,17 @@
         <div class="container">
             <p class="footer-text mb-0">
                 <i class="fas fa-copyright me-1"></i>
-                2025 - EventManagerApp | Modern Event Management Solution
+                2025 - EventManagerApp | Alp Akay
             </p>
         </div>
     </footer>
+
+    @{
+        string GetActiveClass(string controller)
+        {
+            return ViewContext.RouteData.Values["Controller"]?.ToString() == controller ? "active" : "";
+        }
+    }
 
     <script>
         @if (TempData["SuccessMessage"] != null)
@@ -83,6 +85,31 @@
                 alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
                 alertDiv.innerHTML = `
                     <i class="fas fa-check-circle me-2"></i>
+                    @msg
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                `;
+                document.body.appendChild(alertDiv);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
+            </text>
+        }
+    </script>
+    <script>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            var msg = @Html.Raw(Json.Serialize(TempData["ErrorMessage"]));
+            <text>
+                // Modern alert replacement
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert error-alert alert-dismissible fade show position-fixed';
+                alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                alertDiv.innerHTML = `
+                    <i class="fas fa-exclamation-circle me-2"></i>
                     @msg
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
                 `;

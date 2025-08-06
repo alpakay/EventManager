@@ -1,29 +1,75 @@
 @model UserLoginDto
 
-<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
-        <div class="card-body">
-            <h2 class="card-title text-center mb-4">Giriş Yap</h2>
-            <form method="post" asp-action="Login" class="form-horizontal">
-
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
-                {
-                    <div asp-validation-summary="All" class="alert alert-danger"></div>
-                }
-
-                <div class="form-group my-3">
-                    <label asp-for="Email">Email</label>
-                    <input type="text" class="form-control" asp-for="Email" />
-                </div>
-                <div class="form-group my-3">
-                    <label asp-for="Password">Şifre</label>
-                    <input type="password" class="form-control" asp-for="Password" />
-                </div>
-                <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
-                    <a type="button" class="btn btn-secondary" asp-area="Management" asp-controller="User" asp-action="Register">Kayıt Ol</a>
-                </div>
-            </form>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2 class="login-title">Hoş Geldiniz</h2>
+            <p class="login-subtitle">Hesabınıza giriş yapın</p>
         </div>
+
+        <form method="post" asp-action="Login" class="login-form">
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+            {
+                <div class="modern-alert modern-alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <div asp-validation-summary="All" class="mb-0"></div>
+                </div>
+            }
+
+            <div class="form-group-modern">
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-control-modern" asp-for="Email" placeholder="Email adresinizi girin" required />
+                    <label asp-for="Email" class="form-label-modern">Email</label>
+                </div>
+            </div>
+
+            <div class="form-group-modern">
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-control-modern" asp-for="Password" placeholder="Şifrenizi girin" required />
+                    <label asp-for="Password" class="form-label-modern">Şifre</label>
+                    <button type="button" class="password-toggle" onclick="togglePassword()">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-modern btn-primary-modern">
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    Giriş Yap
+                </button>
+                
+                <div class="divider">
+                    <span>veya</span>
+                </div>
+                
+                <a class="btn-modern btn-secondary-modern" asp-area="Management" asp-controller="User" asp-action="Register">
+                    <i class="fas fa-user-plus me-2"></i>
+                    Yeni Hesap Oluştur
+                </a>
+            </div>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('Password');
+        const toggleIcon = document.getElementById('toggleIcon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.className = 'fas fa-eye-slash';
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.className = 'fas fa-eye';
+        }
+    }
+    </script>
+}

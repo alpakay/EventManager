@@ -1,52 +1,148 @@
 @model UserProfileDto
 @{
-    var title = Model.IsEditMode ? "Profil" : "Kayıt Ol";
-    var buttonText = Model.IsEditMode ? "Güncelle" : "Kayıt Ol";
+    var title = Model.IsEditMode ? "Profil Düzenle" : "Hesap Oluştur";
+    var buttonText = Model.IsEditMode ? "Profili Güncelle" : "Kayıt Ol";
     var action = Model.IsEditMode ? "Update" : "Register";
+    var subtitle = Model.IsEditMode ? "Bilgilerinizi güncelleyin" : "Yeni hesabınızı oluşturun";
+    var iconClass = Model.IsEditMode ? "fas fa-user-edit" : "fas fa-user-plus";
 }
-<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
-        <div class="card-body">
-            <h2 class="card-title text-center mb-4">@title</h2>
-            <form method="post" asp-action="@action">
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
-                {
-                    <div asp-validation-summary="All" class="alert alert-danger"></div>
-                }
 
-                <div class="form-group my-3">
-                    <label asp-for="FullName">Ad Soyad</label>
-                    <input type="text" class="form-control" asp-for="FullName" />
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-header">
+            <div class="register-icon">
+                <i class="@iconClass"></i>
+            </div>
+            <h2 class="register-title">@title</h2>
+            <p class="register-subtitle">@subtitle</p>
+        </div>
+        <form id="fakeTokenForm">@Html.AntiForgeryToken()</form>
+        <form method="post" asp-action="@action" class="register-form">
+            <input type="hidden" asp-for="@Model.IsEditMode" />
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+            {
+                <div class="modern-alert modern-alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <div asp-validation-summary="All" class="mb-0"></div>
                 </div>
-                <div class="form-group my-3">
-                    <label asp-for="Email">Email</label>
-                    <input type="text" class="form-control" asp-for="Email" />
+            }
+
+            <div class="form-row">
+                <div class="form-group-modern">
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-control-modern" asp-for="FullName" placeholder="Ad ve soyadınızı girin" required />
+                        <label asp-for="FullName" class="form-label-modern">Ad Soyad</label>
+                    </div>
                 </div>
-                <div class="form-group my-3">
-                    <label asp-for="Password">Şifre</label>
-                    <input type="password" class="form-control" asp-for="Password" />
+
+                <div class="form-group-modern">
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-control-modern" asp-for="Email" placeholder="Email adresinizi girin" required />
+                        <label asp-for="Email" class="form-label-modern">Email</label>
+                    </div>
                 </div>
-                <div class="form-group my-3">
-                    <label asp-for="ConfirmPassword">Şifre Tekrar</label>
-                    <input type="password" class="form-control" asp-for="ConfirmPassword" />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group-modern">
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control-modern" asp-for="Password" placeholder="Şifrenizi girin" required />
+                        <label asp-for="Password" class="form-label-modern">Şifre</label>
+                        <button type="button" class="password-toggle" onclick="togglePassword('Password')">
+                            <i class="fas fa-eye" id="toggleIconPassword"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="form-group my-3">
-                    <label asp-for="BirthDate">Doğum Tarihi</label>
-                    <input type="date" class="form-control" asp-for="BirthDate" min="1950-01-01" max="2007-12-31" />
+
+                <div class="form-group-modern">
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control-modern" asp-for="ConfirmPassword" placeholder="Şifrenizi tekrar girin" required />
+                        <label asp-for="ConfirmPassword" class="form-label-modern">Şifre Tekrar</label>
+                        <button type="button" class="password-toggle" onclick="togglePassword('ConfirmPassword')">
+                            <i class="fas fa-eye" id="toggleIconConfirmPassword"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">@buttonText</button>
+            </div>
+
+            <div class="form-group-modern">
+                <div class="input-wrapper date-wrapper">
+                    <i class="fas fa-calendar-alt input-icon"></i>
+                    <input type="date" class="form-control-modern date-input has-value" asp-for="BirthDate" min="@DateOnly.FromDateTime(DateTime.Now.AddYears(-100)).ToString("yyyy-MM-dd")" max="@DateOnly.FromDateTime(DateTime.Now.AddYears(-18)).ToString("yyyy-MM-dd")" required />
+                    <label asp-for="BirthDate" class="form-label-modern">Doğum Tarihi</label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-modern btn-primary-modern">
+                    <i class="@(Model.IsEditMode ? "fas fa-save" : "fas fa-user-plus") me-2"></i>
+                    @buttonText
+                </button>
+
+                <div class="secondary-actions">
                     @if (Model.IsEditMode)
                     {
-                        <button class="btn btn-danger" method="post" asp-action="Delete">Kullanıcıyı Sil</button>
+                        <button type="button" class="btn-modern btn-danger-modern" onclick="confirmDelete()">
+                            <i class="fas fa-trash me-2"></i>
+                            Hesabı Sil
+                        </button>
                     }
                     else
                     {
-                        <button class="btn btn-danger" type="reset">Temizle</button>
-                        <a type="button" class="btn btn-secondary" asp-area="Management" asp-controller="User" asp-action="Login">Giriş Yap</a>
+                        <div class="action-row">
+                            <button type="reset" class="btn-modern btn-outline-modern">
+                                <i class="fas fa-eraser me-2"></i>
+                                Temizle
+                            </button>
+                            <a class="btn-modern btn-secondary-modern" asp-area="Management" asp-controller="User" asp-action="Login">
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                Giriş Yap
+                            </a>
+                        </div>
                     }
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+    function togglePassword(fieldName) {
+        const passwordInput = document.getElementById(`${fieldName}`);
+        const toggleIcon = document.getElementById(`toggleIcon${fieldName}`);
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.className = 'fas fa-eye-slash';
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.className = 'fas fa-eye';
+        }
+    }
+
+    function confirmDelete() {
+        if (confirm('Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = '@Url.Action("Delete")';
+
+            const token = document.querySelector('input[name="__RequestVerificationToken"]');
+            if (token) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = '__RequestVerificationToken';
+                input.value = token.value;
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+    </script>
+}

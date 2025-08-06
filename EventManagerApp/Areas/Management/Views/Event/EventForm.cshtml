@@ -1,72 +1,272 @@
 @model EventFormViewModel
 @{
-    var title = Model.Event.IsEditMode ? "Etkinlik Güncelle" : "Yeni Etkinlik";
+    var title = Model.Event.IsEditMode ? "Etkinlik Güncelle" : "Yeni Etkinlik Oluştur";
     var buttonText = Model.Event.IsEditMode ? "Güncelle" : "Oluştur";
     var action = Model.Event.IsEditMode ? "Edit" : "Create";
+    var subtitle = Model.Event.IsEditMode ? "Etkinlik bilgilerini güncelleyin" : "Yeni bir etkinlik oluşturun";
+    var iconClass = Model.Event.IsEditMode ? "fas fa-edit" : "fas fa-plus-circle";
 }
+
+<div class="event-form-container">
+    <div class="event-form-card">
+        <div class="form-header">
+            <div class="form-icon">
+                <i class="@iconClass"></i>
+            </div>
+            <h2 class="form-title">@title</h2>
+            <p class="form-subtitle">@subtitle</p>
+        </div>
+
+        <form method="post" asp-action="@action" enctype="multipart/form-data" class="event-form">
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+            {
+                <div class="modern-alert modern-alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <div asp-validation-summary="All" class="mb-0"></div>
+                </div>
+            }
+
+            <input type="hidden" asp-for="Event.EventId" />
+            <input type="hidden" asp-for="Event.ImgUrl" />
+            <input type="hidden" asp-for="Event.IsEditMode" />
+            <input type="hidden" asp-for="Event.CreatorId" />
+
+            <div class="form-section">
+                <h4 class="section-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Temel Bilgiler
+                </h4>
+                
+                <div class="form-row">
+                    <div class="form-group-modern">
+                        <div class="input-wrapper">
+                            <i class="fas fa-calendar-alt input-icon"></i>
+                            <input type="text" class="form-control-modern" asp-for="Event.Name" placeholder="Etkinlik adını girin" required />
+                            <label asp-for="Event.Name" class="form-label-modern">Etkinlik Adı</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group-modern">
+                        <div class="input-wrapper">
+                            <i class="fas fa-align-left input-icon"></i>
+                            <input type="text" class="form-control-modern" asp-for="Event.Description" placeholder="Kısa açıklama girin" required />
+                            <label asp-for="Event.Description" class="form-label-modern">Kısa Açıklama</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-modern full-width">
+                    <label asp-for="Event.LongDescription" class="editor-label">
+                        <i class="fas fa-file-alt me-2"></i>
+                        Detaylı Açıklama
+                    </label>
+                    <div class="editor-wrapper">
+                        <textarea asp-for="Event.LongDescription" class="form-control-editor" rows="8" placeholder="Etkinlik hakkında detaylı bilgi verin..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4 class="section-title">
+                    <i class="fas fa-clock me-2"></i>
+                    Tarih ve Saat
+                </h4>
+                
+                <div class="form-row">
+                    <div class="form-group-modern">
+                        <div class="input-wrapper datetime-wrapper">
+                            <i class="fas fa-play input-icon"></i>
+                            <input type="datetime-local" class="form-control-modern datetime-input has-value" asp-for="Event.StartDate"
+                                min="@DateTime.Now.AddDays(1).Date.ToString("yyyy-MM-ddTHH:mm")"
+                                max="@DateTime.Now.AddYears(1).Date.ToString("yyyy-MM-ddTHH:mm")" required />
+                            <label asp-for="Event.StartDate" class="form-label-modern">Başlangıç Tarihi</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group-modern">
+                        <div class="input-wrapper datetime-wrapper">
+                            <i class="fas fa-stop input-icon"></i>
+                            <input type="datetime-local" class="form-control-modern datetime-input has-value" asp-for="Event.EndDate"
+                                min="@DateTime.Now.AddDays(1).Date.AddHours(1).ToString("yyyy-MM-ddTHH:mm")"
+                                max="@DateTime.Now.AddYears(1).Date.AddHours(1).ToString("yyyy-MM-ddTHH:mm")" required />
+                            <label asp-for="Event.EndDate" class="form-label-modern">Bitiş Tarihi</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4 class="section-title">
+                    <i class="fas fa-image me-2"></i>
+                    Görsel ve Ayarlar
+                </h4>
+                
+                <div class="form-row">
+                    <div class="form-group-modern">
+                        <div class="file-upload-wrapper">
+                            <input type="file" class="file-input" asp-for="ImageFile" id="imageFile" accept=".png, .jpg, .jpeg, .gif" />
+                            <label for="imageFile" class="file-label">
+                                <div class="file-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="file-text">
+                                    <span class="file-title">Görsel Yükle</span>
+                                    <span class="file-subtitle">PNG, JPG veya GIF (Max 2MB)</span>
+                                </div>
+                            </label>
+                            <div class="file-preview" id="filePreview">@if (Model.Event.ImgUrl != null) { <img src="~/uploads/@Model.Event.ImgUrl" alt="Preview" /> }</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group-modern">
+                        <div class="toggle-wrapper">
+                            <input type="checkbox" class="toggle-input" id="isActive" asp-for="Event.isActive" />
+                            <label for="isActive" class="toggle-label">
+                                <div class="toggle-switch">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                                <div class="toggle-text">
+                                    <span class="toggle-title">Etkinlik Durumu</span>
+                                    <span class="toggle-subtitle">Etkinliği aktif olarak yayınla</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-modern btn-primary-modern">
+                    <i class="@(Model.Event.IsEditMode ? "fas fa-save" : "fas fa-plus") me-2"></i>
+                    @buttonText
+                </button>
+
+                @if (Model.Event.IsEditMode)
+                {
+                    <div class="secondary-actions">
+                        <button type="button" class="btn-modern btn-danger-modern" onclick="deleteEvent(@Model.Event.EventId, '@Model.Event.Name')">
+                            <i class="fas fa-trash me-2"></i>
+                            Etkinliği Sil
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="secondary-actions">
+                        <a class="btn-modern btn-secondary-modern" asp-area="Management" asp-controller="Event" asp-action="Index">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Geri Dön
+                        </a>
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
 @section Scripts {
     <script src="https://cdn.tiny.cloud/1/mye4lf6i9nsyqxo3bt5jd0ve7kponigo6iwnxnh913eayely/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        tinymce.init({
-            selector: '#Event_LongDescription',
-            menubar: false,
-            plugins: 'link lists',
-            toolbar: 'undo redo | bold italic underline | bullist numlist | link',
-            branding: false
+    // TinyMCE initialization
+    tinymce.init({
+        selector: '#Event_LongDescription',
+        menubar: false,
+        plugins: 'link lists',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | link',
+        branding: false,
+        skin: 'oxide',
+        content_css: 'default',
+        height: 400,
+        setup: function (editor) {
+            editor.on('focus', function () {
+                document.querySelector('.editor-wrapper').style.borderColor = 'var(--accent-blue)';
+                document.querySelector('.editor-wrapper').style.boxShadow = '0 0 0 3px rgba(66, 153, 225, 0.1)';
+            });
+            editor.on('blur', function () {
+                document.querySelector('.editor-wrapper').style.borderColor = '#e2e8f0';
+                document.querySelector('.editor-wrapper').style.boxShadow = 'none';
+            });
+        }
     });
-</script>
+
+    // File upload preview
+    document.getElementById('imageFile').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('filePreview');
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview" />
+                `;
+            };
+            reader.readAsDataURL(file);
+            
+            // Update file label
+            document.querySelector('.file-title').textContent = 'Görsel Seçildi';
+            document.querySelector('.file-subtitle').textContent = file.name;
+        }
+    });
+
+    // Delete event function
+    async function deleteEvent(eventId, eventName) {
+        const confirmed = await showModernConfirm({
+            title: 'Etkinliği Sil',
+            message: `"${eventName}" etkinliğini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.`,
+            type: 'danger',
+            confirmText: 'Sil',
+            cancelText: 'İptal'
+        });
+        
+        if (confirmed) {
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = '@Url.Action("Delete")';
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id';
+            input.value = eventId;
+            form.appendChild(input);
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    // Page load events
+    document.addEventListener('DOMContentLoaded', function() {
+        const startInput = document.querySelector('input[name="Event.StartDate"]');
+        const endInput = document.querySelector('input[name="Event.EndDate"]');
+
+        startInput.addEventListener('change', function () {
+            const startDate = new Date(startInput.value);
+
+            if (!isNaN(startDate.getTime())) {
+                // 1 saat ekle
+                const endDate = new Date(startDate.getTime() + (60 * 60 * 1000));
+
+                // Formatla
+                const formatted = toDateTimeLocalString(endDate);
+
+                endInput.value = formatted;
+
+                endInput.min = formatted;
+            }
+        });
+
+        function toDateTimeLocalString(date) {
+            const pad = num => String(num).padStart(2, '0');
+
+            const yyyy = date.getFullYear();
+            const MM = pad(date.getMonth() + 1);
+            const dd = pad(date.getDate());
+            const hh = pad(date.getHours());
+            const mm = pad(date.getMinutes());
+
+            return `${yyyy}-${MM}-${dd}T${hh}:${mm}`;
+        }
+    });
+    </script>
 }
-<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
-        <div class="card-body">
-            <h2 class="card-title text-center mb-4">@title</h2>
-            <form method="post" asp-action="@action" enctype="multipart/form-data">
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
-                {
-                    <div asp-validation-summary="All" class="alert alert-danger"></div>
-                }
-                <input type="hidden" asp-for="Event.EventId" />
-                <input type="hidden" asp-for="Event.ImgUrl" />
-                <div class="form-group my-3">
-                    <label asp-for="Event.Name">Etkinlik Adı</label>
-                    <input type="text" class="form-control" asp-for="Event.Name" />
-                </div>
-                <div class="form-group my-3">
-                    <label asp-for="Event.Description">Açıklama</label>
-                    <input type="text" class="form-control" asp-for="Event.Description" />
-                </div>
-                <div class="form-group my-3">
-                    <label asp-for="Event.LongDescription">Uzun Açıklama</label>
-                    <textarea asp-for="Event.LongDescription" class="form-control" rows="10"></textarea>
-                </div>
-                <div class="form-group my-3">
-                    <label asp-for="Event.StartDate">Başlangıç Tarihi</label>
-                    <input type="datetime-local" class="form-control" asp-for="Event.StartDate"
-                        min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
-                        max="@DateTime.Now.AddYears(1).ToString("yyyy-MM-ddTHH:mm")" />
-                </div>
-                <div class="form-group my-3">
-                    <label asp-for="Event.EndDate">Bitiş Tarihi</label>
-                    <input type="datetime-local" class="form-control" asp-for="Event.EndDate"
-                        min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
-                        max="@DateTime.Now.AddYears(1).ToString("yyyy-MM-ddTHH:mm")" />
-                </div>
-                <div class="form-group my-3">
-                    <label asp-for="ImageFile">Görsel</label>
-                    <input type="file" class="form-control" asp-for="ImageFile" />
-                </div>
-                <div class="btn-group my-3 d-flex justify-content-center">
-                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" asp-for="Event.isActive">
-                    <label class="btn btn-outline-primary" for="btncheck1">Aktif</label>
-                </div>
-                <div class="btn-group mb-3 mt-5 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary w-50">@buttonText</button>
-                    @if (Model.Event.IsEditMode)
-                    {
-                        <button class="btn btn-danger w-50" method="post" asp-action="Delete" asp-route-id="@Model.Event.EventId">Sil</button>
-                    }
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
