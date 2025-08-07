@@ -23,42 +23,11 @@ public class RepositoryContext : DbContext
         modelBuilder.Entity<Key>().HasData(
             new Key { KeyId = 1, KeyValue = "z4sbUQxWv/fbiQv4OnQYzjTwcbNTe9I9KR2DZhBPUrQ=" }
         );
-        
-        // modelBuilder.Entity<Event>()
-        // .HasData(
-        //     new Event
-        //     {
-        //         EventId = 1,
-        //         Name = "Halısaha",
-        //         Description = "Çfl Halısahası",
-        //         CreatedAt = new DateTime(2025, 07, 28, 0, 0, 0),
-        //         ImgUrl = "https://example.com/image.jpg",
-        //         StartDate = new DateTime(2025, 07, 29, 0, 0, 0),
-        //         EndDate = new DateTime(2025, 07, 30, 0, 0, 0),
-        //         CategoryId = 1
-        //     },
-        //     new Event
-        //     {
-        //         EventId = 2,
-        //         Name = "Müzik Festivali",
-        //         Description = "Yaz Festivali",
-        //         CreatedAt = new DateTime(2025, 07, 28, 0, 0, 0),
-        //         ImgUrl = "https://example.com/image.jpg",
-        //         StartDate = new DateTime(2025, 07, 29, 0, 0, 0),
-        //         EndDate = new DateTime(2025, 07, 30, 0, 0, 0),
-        //         CategoryId = 2
-        //     },
-        //     new Event
-        //     {
-        //         EventId = 3,
-        //         Name = "F1 Filmi",
-        //         Description = "F1 Filmi Açılışı",
-        //         CreatedAt = new DateTime(2025, 07, 28, 0, 0, 0),
-        //         ImgUrl = "https://example.com/image.jpg",
-        //         StartDate = new DateTime(2025, 07, 29, 0, 0, 0),
-        //         EndDate = new DateTime(2025, 07, 30, 0, 0, 0),
-        //         CategoryId = 3
-        //     }
-        // );
+
+        modelBuilder.Entity<Event>()
+            .HasOne(e => e.Creator)
+            .WithMany()
+            .HasForeignKey(e => e.CreatorId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
