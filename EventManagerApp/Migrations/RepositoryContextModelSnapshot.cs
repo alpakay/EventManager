@@ -112,7 +112,8 @@ namespace EventManagerApp.Migrations
                 {
                     b.HasOne("Entities.Models.User", "Creator")
                         .WithMany()
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Creator");
                 });

@@ -11,8 +11,8 @@ using Repositories;
 namespace EventManagerApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20250805084911_Event.isActive")]
-    partial class EventisActive
+    [Migration("20250807114314_AddCascadeDelete")]
+    partial class AddCascadeDelete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,7 +115,8 @@ namespace EventManagerApp.Migrations
                 {
                     b.HasOne("Entities.Models.User", "Creator")
                         .WithMany()
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Creator");
                 });

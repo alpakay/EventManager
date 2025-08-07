@@ -1,3 +1,4 @@
+using EventManagerApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
@@ -19,7 +20,13 @@ public class EventController : Controller
     public IActionResult Details(int id)
     {
         var eventDetails = _serviceManager.EventService.GetEventDetails(id, false);
-        return View(eventDetails);
+        var otherEvents = _serviceManager.EventService.GetLastFiveActiveEvents(id, false);
+        var eventDetailsViewModel = new EventDetailsViewModel
+        {
+            MainEvent = eventDetails,
+            OtherEvents = otherEvents
+        };
+        return View(eventDetailsViewModel);
     }
 
     public IActionResult Calendar()
