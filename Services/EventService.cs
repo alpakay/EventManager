@@ -56,6 +56,16 @@ namespace Services
             return eventsMapped.AsQueryable();
         }
 
+        public IQueryable<EventShowDto> GetLastFiveActiveEvents(int excludeId, bool trackChanges)
+        {
+            UpdatePastEventsStatus();
+            var events = _repositoryManager.Event.GetEventsByCondition(e => e.IsActive && e.EventId != excludeId, trackChanges)
+                .OrderBy(e => e.StartDate)
+                .Take(6);
+            var eventsMapped = _mapper.Map<List<EventShowDto>>(events);
+            return eventsMapped.AsQueryable();
+        }
+
         public Event GetEventDetails(int eventId, bool trackChanges)
         {
             var eventItem = _repositoryManager.Event.GetOneEvent(eventId, trackChanges);

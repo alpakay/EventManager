@@ -1,32 +1,206 @@
-@model Event
-
+@model EventDetailsViewModel
 @{
     ViewData["Title"] = "Etkinlik Detayı";
 }
 
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">@Model.Name</h4>
+<div class="event-details-container">
+    <!-- Hero Section with Event Image -->
+    <div class="event-hero">
+        <div class="hero-image-container">
+            <img src="~/uploads/@Model.MainEvent.ImgUrl" alt="@Model.MainEvent.Name" class="hero-image" />
+            <div class="hero-overlay"></div>
         </div>
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <img src="~/uploads/@Model.ImgUrl" alt="Etkinlik Görseli" class="img-fluid rounded shadow" />
+        <div class="hero-content">
+            <div class="event-badge">
+                @if (Model.MainEvent.StartDate > DateTime.Now)
+                {
+                    <i class="fas fa-clock me-2"></i>
+                    <span>Yaklaşan Etkinlik</span>
+                }
+                else if (Model.MainEvent.EndDate > DateTime.Now)
+                {
+                    <i class="fas fa-play me-2"></i>
+                    <span>Devam Ediyor</span>
+                }
+                else
+                {
+                    <i class="fas fa-check me-2"></i>
+                    <span>Tamamlandı</span>
+                }
+            </div>
+            <h1 class="event-title">@Model.MainEvent.Name</h1>
+            <p class="event-short-desc">@Model.MainEvent.Description</p>
+        </div>
+    </div>
+
+    <!-- Event Details Section -->
+    <div class="event-details-section">
+        <div class="details-container">
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-info-circle me-3"></i>
+                            Etkinlik Hakkında
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="long-description">
+                            @Html.Raw(Model.MainEvent.LongDescription)
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <p><strong>Açıklama:</strong> @Model.Description</p>
-                    <p>@Html.Raw(Model.LongDescription)</p>
-                    <p><strong>Başlangıç Tarihi:</strong> @Model.StartDate.ToString("dd.MM.yyyy HH:mm")</p>
-                    <p><strong>Bitiş Tarihi:</strong> @Model.EndDate.ToString("dd.MM.yyyy HH:mm")</p>
-                    <p><strong>Oluşturulma Tarihi:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
-                    <p><strong>Oluşturan:</strong> @(Model.Creator?.FullName ?? "Bilinmiyor")</p>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a asp-area="" asp-controller="Event" asp-action="Calendar" class="btn-modern btn-secondary-modern">
+                        <i class="fas fa-calendar me-2"></i>
+                        Takvime Dön
+                    </a>
+                    <a asp-area="" asp-controller="Event" asp-action="Index" class="btn-modern btn-primary-modern">
+                        <i class="fas fa-list me-2"></i>
+                        Tüm Etkinlikler
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Event Info Card -->
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-calendar-alt info-icon"></i>
+                        <h4 class="info-title">Etkinlik Bilgileri</h4>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-item">
+                            <div class="info-label">
+                                <i class="fas fa-play-circle me-2"></i>
+                                Başlangıç
+                            </div>
+                            <div class="info-value">
+                                <div class="date-time">
+                                    <span class="date">@Model.MainEvent.StartDate.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("tr-TR"))</span>
+                                    <span class="time">@Model.MainEvent.StartDate.ToString("HH:mm")</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-label">
+                                <i class="fas fa-stop-circle me-2"></i>
+                                Bitiş
+                            </div>
+                            <div class="info-value">
+                                <div class="date-time">
+                                    <span class="date">@Model.MainEvent.EndDate.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("tr-TR"))</span>
+                                    <span class="time">@Model.MainEvent.EndDate.ToString("HH:mm")</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-label">
+                                <i class="fas fa-user me-2"></i>
+                                Organizatör
+                            </div>
+                            <div class="info-value">
+                                <div class="organizer">
+                                    <div class="organizer-avatar">
+                                        <i class="fas fa-user-circle"></i>
+                                    </div>
+                                    <div class="organizer-info">
+                                        <span class="organizer-name">@(Model.MainEvent.Creator?.FullName ?? "Bilinmiyor")</span>
+                                        <span class="organizer-role">Etkinlik Organizatörü</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-label">
+                                <i class="fas fa-plus-circle me-2"></i>
+                                Oluşturulma
+                            </div>
+                            <div class="info-value">
+                                <span class="created-date">@Model.MainEvent.CreatedAt.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("tr-TR"))</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duration Card -->
+                <div class="duration-card">
+                    <div class="duration-content">
+                        <div class="duration-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="duration-info">
+                            <div class="duration-label">Etkinlik Süresi</div>
+                            <div class="duration-value">
+                                @{
+                                    var duration = Model.MainEvent.EndDate - Model.MainEvent.StartDate;
+                                    var days = duration.Days;
+                                    var hours = duration.Hours;
+                                    var minutes = duration.Minutes;
+                                }
+                                @if (days > 0)
+                                {
+                                    <span>@days gün</span>
+                                }
+                                @if (hours > 0)
+                                {
+                                    <span>@hours saat</span>
+                                }
+                                @if (minutes > 0 && days == 0)
+                                {
+                                    <span>@minutes dakika</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card-footer text-end">
-            <a asp-area="" asp-controller="Event" asp-action="Calendar" class="btn btn-secondary">Takvime Dön</a>
-            <a asp-area="" asp-controller="Event" asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
-        </div>
     </div>
+
+    <!-- Other Events Section -->
+    @if (Model.OtherEvents != null && Model.OtherEvents.Any())
+    {
+        <div class="other-events-section">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-calendar-week me-3"></i>
+                    Diğer Etkinlikler
+                </h3>
+                <p class="section-subtitle">Keşfedebileceğiniz diğer etkinlikler</p>
+            </div>
+
+            <div class="other-events-grid">
+                @foreach (var eventItem in Model.OtherEvents)
+                {
+                    <div class="other-event-card">
+                        <div class="event-image-container">
+                            <img src="~/uploads/@eventItem.ImgUrl" alt="@eventItem.Name" class="event-image" />
+                            <div class="event-overlay">
+                                <a asp-area="" asp-controller="Event" asp-action="Details" asp-route-id="@eventItem.EventId" class="view-details-btn">
+                                    <i class="fas fa-eye me-2"></i>
+                                    Detayları Gör
+                                </a>
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <h5 class="event-name-details">@eventItem.Name</h5>
+                            <p class="event-desc">@eventItem.Description</p>
+                            <div class="event-date-detail">
+                                <i class="fas fa-calendar me-2"></i>
+                                @eventItem.StartDate.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("tr-TR"))
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>

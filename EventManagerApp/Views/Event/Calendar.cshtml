@@ -1,7 +1,21 @@
-<div id="calendar"></div>
-@section Styles {
-    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/lumen/bootstrap.min.css" rel="stylesheet">
-}
+<div class="calendar-container">
+    <div class="calendar-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="header-text">
+                <h1 class="header-title">Etkinlik Takvimi</h1>
+                <p class="header-subtitle">Tüm etkinlikleri takvim görünümünde keşfedin</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="calendar-wrapper">
+        <div id="calendar"></div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.18/index.global.min.js"></script>
     <script>
@@ -18,8 +32,6 @@
                 events: 'GetEventsForCalendar',
                 displayEventTime: false,
                 eventBorderColor: 'grey',
-                eventBackgroundColor: 'lightblue',
-                eventTextColor: 'black',
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 dayHeaderFormat: { weekday: 'long' },
                 dayMaxEventRows: 4,
