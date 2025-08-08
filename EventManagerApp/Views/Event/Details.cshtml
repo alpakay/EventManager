@@ -124,7 +124,10 @@
                                 Oluşturulma
                             </div>
                             <div class="info-value">
-                                <span class="created-date">@Model.MainEvent.CreatedAt.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("tr-TR"))</span>
+                                <div class="date-time">
+                                    <span class="date">@Model.MainEvent.CreatedAt.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("tr-TR"))</span>
+                                    <span class="time">@Model.MainEvent.CreatedAt.ToString("HH:mm")</span>
+                                </div>
                             </div>
                         </div>
                     </div>
