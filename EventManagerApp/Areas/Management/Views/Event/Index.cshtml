@@ -116,7 +116,10 @@
                                 <td>
                                     <div class="created-cell">
                                         <i class="fas fa-clock created-icon"></i>
-                                        <span class="created-text">@eventItem.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                        <div class="date-info">
+                                            <span class="created-text">@eventItem.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                            <small class="created-hour">@eventItem.CreatedAt.ToString("HH:mm")</small>
+                                        </div> 
                                     </div>
                                 </td>
                                 <td>
