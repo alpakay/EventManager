@@ -33,7 +33,7 @@
     <div class="events-section">
         <div class="section-header">
             <h2 class="section-title">
-                <i class="fas fa-calendar-alt me-3"></i>
+                <i class="fas fa-list me-3"></i>
                 Tüm Etkinlikler
             </h2>
             <p class="section-subtitle">Yaklaşan etkinlikleri keşfedin ve katılın</p>
@@ -41,75 +41,81 @@
 
         @if (Model != null && Model.Any())
         {
-            <div class="events-grid">
-                @foreach (var eventItem in Model)
-                {
-                    <div class="event-card">
-                        <div class="event-header">
-                            <div class="event-date">
-                                <div class="date-day-user-event">@eventItem.StartDate.Day</div>
-                                <div class="date-month">@eventItem.StartDate.ToString("MMM", new System.Globalization.CultureInfo("tr-TR"))</div>
+            <div class="events-list-container">
+                <div class="events-list">
+                    @foreach (var eventItem in Model)
+                    {
+                        <div class="event-list-item">
+                            <div class="event-image-container-list">
+                                <img src="~/uploads/@eventItem.ImgUrl" alt="@eventItem.Name" class="event-image-list" />
+                                <div class="event-status @(eventItem.StartDate > DateTime.Now ? "upcoming" : "past")">
+                                    @if (eventItem.StartDate > DateTime.Now)
+                                    {
+                                        <i class="fas fa-clock me-1"></i>
+                                        <span>Yaklaşan</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-check me-1"></i>
+                                        <span>Tamamlandı</span>
+                                    }
+                                </div>
                             </div>
-                            <div class="event-status @(eventItem.StartDate > DateTime.Now ? "upcoming" : "past")">
-                                @if (eventItem.StartDate > DateTime.Now)
-                                {
-                                    <i class="fas fa-clock me-1"></i>
-                                    <span>Yaklaşan</span>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-check me-1"></i>
-                                    <span>Tamamlandı</span>
-                                }
-                            </div>
-                        </div>
-
-                        <div class="event-content">
-                            <h3 class="event-title">@eventItem.Name</h3>
                             
-                            <div class="event-details-user">
-                                <div class="detail-item">
-                                    <i class="fas fa-calendar-day detail-icon"></i>
-                                    <div class="detail-text">
-                                        <span class="detail-label">Başlangıç</span>
-                                        <span class="detail-value">@eventItem.StartDate.ToString("dd/MM/yyyy HH:mm")</span>
+                            <div class="event-list-content">
+                                <div class="event-list-header">
+                                    <div class="event-date-badge">
+                                        <div class="date-day-list">@eventItem.StartDate.Day</div>
+                                        <div class="date-month-list">@eventItem.StartDate.ToString("MMM", new System.Globalization.CultureInfo("tr-TR"))</div>
                                     </div>
+                                    <h3 class="event-list-title">@eventItem.Name</h3>
                                 </div>
-
-                                <div class="detail-item">
-                                    <i class="fas fa-calendar-times detail-icon"></i>
-                                    <div class="detail-text">
-                                        <span class="detail-label">Bitiş</span>
-                                        <span class="detail-value">@eventItem.EndDate.ToString("dd/MM/yyyy HH:mm")</span>
+                                
+                                <div class="event-list-details">
+                                    <div class="detail-row">
+                                        <div class="detail-item-list">
+                                            <i class="fas fa-calendar-day detail-icon-list"></i>
+                                            <div class="detail-text-list">
+                                                <span class="detail-label-list">Başlangıç</span>
+                                                <span class="detail-value-list">@eventItem.StartDate.ToString("dd/MM/yyyy HH:mm")</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-item-list">
+                                            <i class="fas fa-calendar-times detail-icon-list"></i>
+                                            <div class="detail-text-list">
+                                                <span class="detail-label-list">Bitiş</span>
+                                                <span class="detail-value-list">@eventItem.EndDate.ToString("dd/MM/yyyy HH:mm")</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="detail-item">
-                                    <i class="fas fa-user detail-icon"></i>
-                                    <div class="detail-text">
-                                        <span class="detail-label">Organizatör</span>
-                                        <span class="detail-value">@eventItem.CreatorName</span>
-                                    </div>
-                                </div>
-
-                                <div class="detail-item">
-                                    <i class="fas fa-plus-circle detail-icon"></i>
-                                    <div class="detail-text">
-                                        <span class="detail-label">Oluşturulma</span>
-                                        <span class="detail-value">@eventItem.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                    <div class="detail-row">
+                                        <div class="detail-item-list">
+                                            <i class="fas fa-user detail-icon-list"></i>
+                                            <div class="detail-text-list">
+                                                <span class="detail-label-list">Organizatör</span>
+                                                <span class="detail-value-list">@eventItem.CreatorName</span>
+                                            </div>
+                                        </div>
+                                        <div class="detail-item-list">
+                                            <i class="fas fa-plus-circle detail-icon-list"></i>
+                                            <div class="detail-text-list">
+                                                <span class="detail-label-list">Oluşturulma</span>
+                                                <span class="detail-value-list">@eventItem.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="event-list-action">
+                                <a class="btn-list-details" asp-area="" asp-controller="Event" asp-action="Details" asp-route-id="@eventItem.EventId">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Detayları Görüntüle
+                                </a>
+                            </div>
                         </div>
-
-                        <div class="event-footer">
-                            <a class="btn-event-details" asp-area="" asp-controller="Event" asp-action="Details" asp-route-id="@eventItem.EventId">
-                                <i class="fas fa-info-circle me-2"></i>
-                                Detayları Görüntüle
-                            </a>
-                        </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         }
         else
