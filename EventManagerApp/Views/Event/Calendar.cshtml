@@ -27,6 +27,20 @@
                 buttonText: {
                     today: 'Bugün',
                 },
+                moreLinkText: 'etkinlik',
+                customButtons: {
+                    toListViewButton: {
+                        text: 'Liste Görünümü',
+                        click: function() {
+                            window.location.href = '@Url.Action("Index", "Event", new { area = "" })';
+                        }
+                    }
+                },
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'toListViewButton'
+                },
                 height: 'auto',
                 width: 'auto',
                 events: 'GetEventsForCalendar',
@@ -35,8 +49,11 @@
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 dayHeaderFormat: { weekday: 'long' },
                 dayMaxEventRows: 4,
+                firstDay: 2,
             });
             calendar.render();
+            const listViewButton = document.querySelector('.fc-toListViewButton-button');
+            if (listViewButton) listViewButton.innerHTML = '<i class="fas fa-list me-3"></i> Liste Görünümü';
         });
     </script>
 }

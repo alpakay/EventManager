@@ -40,7 +40,7 @@ public class EventController : Controller
             .Select(e => new
             {
                 id = e.EventId,
-                title = FormatEventTitle(e.Name, e.StartDate),
+                title = FormatEventTitle(e.Name, e.StartDate, e.EndDate),
                 start = e.StartDate.ToString("yyyy-MM-ddTHH:mm:ss"),
                 end = e.EndDate.ToString("yyyy-MM-ddTHH:mm:ss"),
                 url = Url.Action("Details", "Event", new { Area = "", id = e.EventId }),
@@ -50,8 +50,8 @@ public class EventController : Controller
         return Json(events);
     }
 
-    private string FormatEventTitle(string name, DateTime startDate)
+    private string FormatEventTitle(string name, DateTime startDate, DateTime endDate)
     {
-        return $"{startDate:HH:mm} - {name}";
+        return $"{startDate:HH:mm} - {endDate:HH:mm} | {name}";
     }
 }

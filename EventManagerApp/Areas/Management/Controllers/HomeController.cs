@@ -18,7 +18,7 @@ public class HomeController : BaseController
     {
         ViewData["Title"] = "Yönetim Paneli";
         ViewData["User"] = CurrentUserName;
-        var model = _manager.UserService.GetOneUser(CurrentUserId, true);
+        var model = _manager.UserService.GetOneUser(CurrentUserId, false);
         if (model == null)
         {
             return HandleNotFound("User not found");

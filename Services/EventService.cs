@@ -21,6 +21,12 @@ namespace Services
         }
         public void CreateEvent(EventFormDto eventEntity)
         {
+            var existingEvent = _repositoryManager.Event.FindByCondition(e => e.Name == eventEntity.Name, false);
+            if (existingEvent != null)
+            {
+                throw new ArgumentException("Bu isimde bir etkinlik zaten mevcut.");
+            }
+
             var eventMapped = _mapper.Map<Event>(eventEntity);
             eventMapped.CreatedAt = DateTime.Now;
 
@@ -89,6 +95,12 @@ namespace Services
 
         public void UpdateEvent(EventFormDto eventEntity)
         {
+            var existingEvent = _repositoryManager.Event.FindByCondition(e => e.Name == eventEntity.Name && e.EventId != eventEntity.EventId, false);
+            if (existingEvent != null)
+            {
+                throw new ArgumentException("Bu isimde bir etkinlik zaten mevcut.");
+            }
+
             var eventToUpdate = _repositoryManager.Event.GetOneEvent(eventEntity.EventId, true);
             if (eventToUpdate == null)
             {
@@ -105,6 +117,7 @@ namespace Services
             var pastEvents = _repositoryManager.Event.GetEventsByCondition(e => e.EndDate < DateTime.Now && e.IsActive, false).ToList();
             foreach (var pastEvent in pastEvents)
             {
+                pastEvent.Creator = null;
                 pastEvent.IsActive = false;
                 _repositoryManager.Event.Update(pastEvent);
             }

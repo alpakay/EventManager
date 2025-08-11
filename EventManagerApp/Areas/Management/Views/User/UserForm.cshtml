@@ -46,10 +46,10 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group-modern">
-                    <div class="input-wrapper">
+                <div class="form-group-modern-password">
+                    <div class="input-wrapper-password">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-control-modern" asp-for="Password" placeholder="Şifrenizi girin" required />
+                        <input type="password" class="form-control-modern" asp-for="Password" placeholder="Şifrenizi girin" required oninput="calculateStrength(this.value)" />
                         <label asp-for="Password" class="form-label-modern">Şifre</label>
                         <button type="button" class="password-toggle" onclick="togglePassword('Password')">
                             <i class="fas fa-eye" id="toggleIconPassword"></i>
@@ -57,14 +57,28 @@
                     </div>
                 </div>
 
-                <div class="form-group-modern">
-                    <div class="input-wrapper">
+                <div class="form-group-modern-password">
+                    <div class="input-wrapper-password">
                         <i class="fas fa-lock input-icon"></i>
                         <input type="password" class="form-control-modern" asp-for="ConfirmPassword" placeholder="Şifrenizi tekrar girin" required />
                         <label asp-for="ConfirmPassword" class="form-label-modern">Şifre Tekrar</label>
                         <button type="button" class="password-toggle" onclick="togglePassword('ConfirmPassword')">
                             <i class="fas fa-eye" id="toggleIconConfirmPassword"></i>
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row-strength">
+                <div class="password-strength-group">
+                    <div class="password-strength-header">
+                        <span class="password-strength-title">Şifre Gücü:</span>
+                        <span class="password-strength-level" style="color: #a0aec0">Çok Zayıf</span>
+                    </div>
+                    <div class="password-strength-bar">
+                        <div class="strength-bar" id="passwordStrengthBar">
+                            <div id="strength-level" style="width: 0%;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,6 +156,51 @@
 
             document.body.appendChild(form);
             form.submit();
+        }
+    }
+
+    function calculateStrength(password) {
+        const strengthBar = document.getElementById('strength-level');
+        const strengthLevel = document.querySelector('.password-strength-level');
+
+        let strength = 0;
+
+        if (password.length >= 8) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[0-9]/.test(password)) strength += 1;
+        if (/[a-z]/.test(password)) strength += 1;
+
+        switch (strength) {
+            case 0:
+                strengthBar.style.width = '0%';
+                strengthBar.style.backgroundColor = '#a0aec0';
+                strengthLevel.textContent = 'Çok Zayıf';
+                strengthLevel.style.color = '#a0aec0';
+                break;
+            case 1:
+                strengthBar.style.width = '25%';
+                strengthBar.style.backgroundColor = '#a61414';
+                strengthLevel.textContent = 'Zayıf';
+                strengthLevel.style.color = '#a61414';
+                break;
+            case 2:
+                strengthBar.style.width = '50%';
+                strengthBar.style.backgroundColor = '#b85804';
+                strengthLevel.textContent = 'Orta';
+                strengthLevel.style.color = '#b85804';
+                break;
+            case 3:
+                strengthBar.style.width = '75%';
+                strengthBar.style.backgroundColor = '#b3970c';
+                strengthLevel.textContent = 'İyi';
+                strengthLevel.style.color = '#b3970c';
+                break;
+            case 4:
+                strengthBar.style.width = '100%';
+                strengthBar.style.backgroundColor = '#277d02';
+                strengthLevel.textContent = 'Güçlü';
+                strengthLevel.style.color = '#277d02';
+                break;
         }
     }
     </script>

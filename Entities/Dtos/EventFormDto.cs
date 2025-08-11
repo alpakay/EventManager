@@ -7,9 +7,11 @@ namespace Entities.Dtos
     {
         public int EventId { get; set; }
         [Required(ErrorMessage = "Etkinlik adı zorunludur.")]
+        [StringLength(255, ErrorMessage = "Etkinlik adı en fazla 255 karakter olabilir.")]
         public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Açıklama zorunludur.")]
+        [StringLength(512, ErrorMessage = "Açıklama en fazla 512 karakter olabilir.")]
         public string Description { get; set; } = string.Empty;
         [Required(ErrorMessage = "Uzun açıklama zorunludur.")]
         public string LongDescription { get; set; } = string.Empty;
