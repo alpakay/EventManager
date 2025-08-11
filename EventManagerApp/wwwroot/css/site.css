@@ -2011,6 +2011,39 @@ body {
     margin-bottom: 0;
 }
 
+.form-row-strength {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.password-strength-group {
+    margin-bottom: 1.5rem;
+}
+.password-strength-header {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.password-strength-title {
+    color: var(--text-muted);
+}
+
+.password-strength-bar {
+    margin-top: .6rem;
+    height: 8px;
+    border-radius: 4px;
+    background-color: rgb(226, 226, 226);
+}
+
+#strength-level {
+    height: 8px;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
 .full-width {
     grid-column: 1 / -1;
 }
@@ -2019,9 +2052,18 @@ body {
     margin-bottom: 1.5rem;
 }
 
+.form-group-modern-password {
+    margin-bottom: 0rem;
+}
+
 .input-wrapper {
     position: relative;
 }
+
+.input-wrapper-password {
+    position: relative;
+    margin-bottom: 1rem;
+} 
 
 .input-icon {
     position: absolute;
