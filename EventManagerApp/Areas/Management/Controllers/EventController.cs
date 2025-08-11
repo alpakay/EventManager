@@ -56,7 +56,7 @@ namespace EventManagerApp.Areas.Management.Controllers
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = ex.Message;
+                ModelState.AddModelError(string.Empty, ex.Message);
                 return View("EventForm", model);
             }
         }
@@ -96,7 +96,7 @@ namespace EventManagerApp.Areas.Management.Controllers
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = ex.Message;
+                ModelState.AddModelError(string.Empty, ex.Message);
                 return View("EventForm", model);
             }
         }

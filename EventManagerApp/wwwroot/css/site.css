@@ -955,6 +955,7 @@ body {
     border: none;
 }
 
+
 .user-info {
     display: flex;
     align-items: center;
@@ -1256,6 +1257,8 @@ body {
 .event-details {
     display: flex;
     flex-direction: column;
+    max-inline-size: 40vh;
+    overflow: hidden;
 }
 
 .event-name {
@@ -2517,29 +2520,45 @@ body {
     padding: 0 2rem 4rem;
 }
 
-.section-header {
+.section-header-list {
     text-align: center;
     margin-bottom: 3rem;
 }
 
-.section-title {
+.section-header-list .header-top {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 15% 15% 1fr auto 1fr 15% 15%;
+    gap: 1rem;
+}
+
+.section-title-list {
+    grid-column: 4;
+    margin: 0;
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--primary-dark);
     margin-bottom: 1rem;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.75rem;
 }
 
-.section-title i {
+.section-header-list .btn-modern {
+    grid-column: 6;
+    justify-self: end;
+}
+
+.section-title-list i {
     color: var(--accent-blue);
 }
 
-.section-subtitle {
+.section-subtitle-list {
     font-size: 1.1rem;
     color: var(--text-muted);
     margin: 0;
+    text-align: center;
 }
 
 .events-list-container {

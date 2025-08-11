@@ -31,12 +31,17 @@
 
     <!-- Events Section -->
     <div class="events-section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <i class="fas fa-list me-3"></i>
-                Tüm Etkinlikler
-            </h2>
-            <p class="section-subtitle">Yaklaşan etkinlikleri keşfedin ve katılın</p>
+        <div class="section-header-list">
+            <div class="header-top">
+                <h2 class="section-title-list">
+                    <i class="fas fa-list me-3"></i>
+                    Tüm Etkinlikler
+                </h2>
+                <a href="@Url.Action("Calendar", "Event", new { area = "" })" class="btn-modern btn-primary-modern">
+                    <i class="fas fa-calendar-alt me-2"></i> Takvim Görünümü
+                </a>
+            </div>
+            <p class="section-subtitle-list">Yaklaşan etkinlikleri keşfedin ve katılın</p>
         </div>
 
         @if (Model != null && Model.Any())
@@ -56,8 +61,8 @@
                                     }
                                     else
                                     {
-                                        <i class="fas fa-check me-1"></i>
-                                        <span>Tamamlandı</span>
+                                        <i class="fas fa-play me-2"></i>
+                                        <span>Devam Ediyor</span>
                                     }
                                 </div>
                             </div>
