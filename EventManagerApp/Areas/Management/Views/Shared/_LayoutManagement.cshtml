@@ -124,6 +124,45 @@
             </text>
         }
     </script>
+    <script>
+        function showConfirmDialog(itemId, itemName) {
+            const confirmDiv = document.createElement('div');
+            confirmDiv.className = 'confirm-card'
+            confirmDiv.innerHTML = `
+                <p class="confirm-card-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Etkinliği Sil
+                </p>
+                <p class="confirm-card-content">
+                    ${itemName} etkinliği silinecek! İşleme devam etmek istiyor musunuz?
+                </p>
+                <div class="confirm-card-buttonContainer">
+                    <button class="acceptButton">Evet</button>
+                    <button class="declineButton">İptal</button>
+                </div>
+            `;
+            document.body.appendChild(confirmDiv);
+
+            const acceptBtn = confirmDiv.querySelector('.acceptButton');
+            const declineBtn = confirmDiv.querySelector('.declineButton');
+            
+            const publishResult = (accepted) => {
+            window.dispatchEvent(new CustomEvent('confirm-card:result', {
+                detail: { accepted, itemId, itemName }
+            }));
+            
+            confirmDiv.remove();
+            };
+
+            acceptBtn.addEventListener('click', () => publishResult(true));
+            declineBtn.addEventListener('click', () => publishResult(false));
+        }
+
+        window.addEventListener('confirm-card:render', (event) => {
+            const { itemId, itemName } = event.detail || {};
+            showConfirmDialog(itemId, itemName);
+        });
+    </script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

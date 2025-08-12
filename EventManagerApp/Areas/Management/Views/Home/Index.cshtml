@@ -71,32 +71,6 @@
                 </a>
             </div>
         </div>
-
-        @* <div class="dashboard-card users-card">
-            <div class="card-icon">
-                <i class="fas fa-users"></i>
-            </div>
-            <div class="card-content">
-                <h3 class="card-title">Kullanıcı Yönetimi</h3>
-                <p class="card-description">Sistem kullanıcılarını görüntüleyin ve yönetin</p>
-                <div class="card-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-user-plus me-2"></i>
-                        <span>Yeni kullanıcı ekle</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-user-cog me-2"></i>
-                        <span>Kullanıcıları yönet</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-action">
-                <a asp-area="Management" asp-controller="User" asp-action="Index" class="btn-card btn-info-card">
-                    <i class="fas fa-arrow-right me-2"></i>
-                    Kullanıcı Yönetimi
-                </a>
-            </div>
-        </div> *@
     </div>
 
     <div class="logout-section">
@@ -110,12 +84,63 @@
                     <p>Oturumunuzu güvenli bir şekilde sonlandırın</p>
                 </div>
             </div>
-            <form asp-controller="User" asp-action="Logout" method="post" class="logout-form">
-                <button type="submit" class="btn-logout" onclick="return confirm('Çıkış yapmak istediğinizden emin misiniz?')">
-                    <i class="fas fa-power-off me-2"></i>
-                    Güvenli Çıkış
-                </button>
-            </form>
+            <form id="fakeTokenForm">@Html.AntiForgeryToken()</form>
+            <button type="submit" class="btn-logout" onclick="logoutClick('@Model.FullName')">
+                <i class="fas fa-power-off me-2"></i>
+                Güvenli Çıkış
+            </button>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function logoutClick(itemName) {
+            const confirmCard = document.createElement('div');
+            confirmCard.className = 'confirm-card';
+            confirmCard.innerHTML = `
+                <p class="confirm-card-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Çıkış Yap
+                </p>
+                <p class="confirm-card-content">
+                    ${itemName} hesabından çıkış yapmak üzeresin! İşleme devam etmek istiyor musunuz?
+                </p>
+                <div class="confirm-card-buttonContainer">
+                    <button class="acceptButton">Evet</button>
+                    <button class="declineButton">İptal</button>
+                </div>
+            `;
+            document.body.appendChild(confirmCard);
+
+            const acceptBtn = confirmCard.querySelector('.acceptButton');
+            const declineBtn = confirmCard.querySelector('.declineButton');
+
+            acceptBtn.addEventListener('click', () => logout());
+            declineBtn.addEventListener('click', () => 
+            {
+                confirmCard.remove(); 
+                window.location.href = '@Url.Action("Index", "Home", new { area = "Management" })';
+            });
+        }
+
+        function logout() {
+            console.log('Çıkış yapılıyor...');
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = '@Url.Action("Logout", "User", new { area = "Management" })';
+
+            const token = document.querySelector('input[name="__RequestVerificationToken"]');
+            if (token) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = '__RequestVerificationToken';
+                input.value = token.value;
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+}

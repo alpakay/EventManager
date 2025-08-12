@@ -3678,8 +3678,8 @@ body {
 }
 
 .fc-daygrid-day.fc-day-today {
-    background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(56, 161, 105, 0.05)) !important;
-    border: 2px solid var(--accent-green) !important;
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.363), rgba(56, 161, 105, 0.212)) !important;
+    border: none !important;
 }
 
 .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
@@ -3835,3 +3835,181 @@ body {
 }
 
 /* calendar end */
+
+/* confirm-card start */
+
+.confirm-card {
+  width: 500px;
+  min-height: 200px;
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1.5rem;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 9999;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: confirmSlideIn 0.3s ease-in;
+}
+
+.confirm-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+}
+
+.confirm-card-header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.confirm-card-content {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  max-width: 450px;
+}
+
+.confirm-card-buttonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.acceptButton {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, var(--accent-green), #38a169);
+  transition: all 0.3s ease;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+  min-width: 100px;
+}
+
+.declineButton {
+  padding: 0.75rem 2rem;
+  background: var(--secondary-dark);
+  transition: all 0.3s ease;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(45, 55, 72, 0.2);
+  min-width: 100px;
+}
+
+.declineButton:hover {
+  background: #1a202c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(45, 55, 72, 0.3);
+}
+
+.acceptButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+}
+
+/* Overlay */
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 9998;
+  animation: confirmFadeIn 0.3s ease-out;
+}
+
+/* Animasyonlar */
+@keyframes confirmSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes confirmFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .confirm-card {
+    width: 90%;
+    max-width: 350px;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+  
+  .confirm-card-header {
+    font-size: 1.25rem;
+  }
+  
+  .confirm-card-content {
+    font-size: 0.9rem;
+  }
+  
+  .confirm-card-buttonContainer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .acceptButton,
+  .declineButton {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .confirm-card {
+    width: 95%;
+    padding: 1.25rem;
+  }
+  
+  .confirm-card-header {
+    font-size: 1.1rem;
+  }
+  
+  .confirm-card-content {
+    font-size: 0.85rem;
+  }
+}
+
+/* confirm-card end */

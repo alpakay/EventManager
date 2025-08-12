@@ -12,9 +12,11 @@ public class UserController : BaseController
 {
 
     private readonly IServiceManager _manager;
-    public UserController(IServiceManager manager)
+    private readonly IWebHostEnvironment _env;
+    public UserController(IServiceManager manager, IWebHostEnvironment env)
     {
         _manager = manager;
+        _env = env;
     }
 
     [Authorize]
@@ -150,7 +152,8 @@ public class UserController : BaseController
     [Authorize]
     public async Task<IActionResult> Delete()
     {
-        _manager.UserService.DeleteUser(CurrentUserId);
+        var rootPath = _env.WebRootPath;
+        _manager.UserService.DeleteUser(CurrentUserId, rootPath);
         await _manager.AuthService.LogoutAsync();
         TempData["SuccessMessage"] = "Kullanıcı silindi.";
         return RedirectToAction("Index", "Home", new { area = "Management" });
