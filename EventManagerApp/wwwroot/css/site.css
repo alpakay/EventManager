@@ -3678,8 +3678,8 @@ body {
 }
 
 .fc-daygrid-day.fc-day-today {
-    background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(56, 161, 105, 0.05)) !important;
-    border: 2px solid var(--accent-green) !important;
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.363), rgba(56, 161, 105, 0.212)) !important;
+    border: none !important;
 }
 
 .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {

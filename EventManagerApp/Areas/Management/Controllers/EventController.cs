@@ -54,9 +54,20 @@ namespace EventManagerApp.Areas.Management.Controllers
                 TempData["SuccessMessage"] = "Etkinlik başarıyla oluşturuldu.";
                 return RedirectToAction("Index");
             }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message.Remove(ex.Message.IndexOf("(", StringComparison.Ordinal)));
+                if (ex.ParamName == nameof(model.Event.Name))
+                {
+                    var rootPath = _env.WebRootPath;
+                    _manager.FileService.DeleteFile(model.Event.ImgUrl, rootPath);
+                    model.Event.ImgUrl = null!;
+                }
+                return View("EventForm", model);
+            }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, "Bir hata oluştu: " + ex.Message);
                 return View("EventForm", model);
             }
         }

@@ -11,12 +11,14 @@ public class UserService : IUserService
     private readonly IRepositoryManager _repositoryManager;
     private readonly IMapper _mapper;
     private readonly IEncryptionService _encryptionService;
+    private readonly IFileService _fileService;
 
-    public UserService(IRepositoryManager repositoryManager, IMapper mapper, IEncryptionService encryptionService)
+    public UserService(IRepositoryManager repositoryManager, IMapper mapper, IEncryptionService encryptionService, IFileService fileService)
     {
         _repositoryManager = repositoryManager;
         _mapper = mapper;
         _encryptionService = encryptionService;
+        _fileService = fileService;
     }
 
     public IQueryable<User> GetAllUsers(bool trackChanges)
@@ -53,9 +55,14 @@ public class UserService : IUserService
         _repositoryManager.Save();
     }
 
-    public void DeleteUser(int userId)
+    public void DeleteUser(int userId, string rootPath)
     {
         var user = _repositoryManager.User.GetOneUser(userId, false);
+        var userEvents = _repositoryManager.Event.GetAllEvents(false).Where(e => e.CreatorId == userId);
+        foreach (var userEvent in userEvents)
+        {
+            _fileService.DeleteFile(userEvent.ImgUrl, rootPath);
+        }
         if (user == null)
         {
             throw new InvalidOperationException("User not found.");

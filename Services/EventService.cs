@@ -24,7 +24,7 @@ namespace Services
             var existingEvent = _repositoryManager.Event.FindByCondition(e => e.Name == eventEntity.Name, false);
             if (existingEvent != null)
             {
-                throw new ArgumentException("Bu isimde bir etkinlik zaten mevcut.");
+                throw new ArgumentException("Bu isimde bir etkinlik zaten mevcut.", nameof(eventEntity.Name));
             }
 
             var eventMapped = _mapper.Map<Event>(eventEntity);
@@ -98,7 +98,7 @@ namespace Services
             var existingEvent = _repositoryManager.Event.FindByCondition(e => e.Name == eventEntity.Name && e.EventId != eventEntity.EventId, false);
             if (existingEvent != null)
             {
-                throw new ArgumentException("Bu isimde bir etkinlik zaten mevcut.");
+                throw new ArgumentException("Bu isimde bir etkinlik zaten mevcut.", nameof(eventEntity.Name));
             }
 
             var eventToUpdate = _repositoryManager.Event.GetOneEvent(eventEntity.EventId, true);
