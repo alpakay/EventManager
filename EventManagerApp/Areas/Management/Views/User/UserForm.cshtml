@@ -100,7 +100,7 @@
                 <div class="secondary-actions">
                     @if (Model.IsEditMode)
                     {
-                        <button type="button" class="btn-modern btn-danger-modern" onclick="confirmDelete()">
+                        <button type="button" class="btn-modern btn-danger-modern" onclick="deleteClick('@Model.FullName')">
                             <i class="fas fa-trash me-2"></i>
                             Hesabı Sil
                         </button>
@@ -139,24 +139,51 @@
         }
     }
 
-    function confirmDelete() {
-        if (confirm('Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
-            const form = document.createElement('form');
-            form.method = 'post';
-            form.action = '@Url.Action("Delete")';
+    function deleteClick(itemName) {
+        const confirmCard = document.createElement('div');
+        confirmCard.className = 'confirm-card';
+        confirmCard.innerHTML = `
+            <p class="confirm-card-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                Hesabı Sil
+            </p>
+            <p class="confirm-card-content">
+                ${itemName} kişisi ve oluşturduğu bütün etkinlikler silinecek! İşleme devam etmek istiyor musunuz?
+            </p>
+            <div class="confirm-card-buttonContainer">
+                <button class="acceptButton">Evet</button>
+                <button class="declineButton">İptal</button>
+            </div>
+        `;
+        document.body.appendChild(confirmCard);
 
-            const token = document.querySelector('input[name="__RequestVerificationToken"]');
-            if (token) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = '__RequestVerificationToken';
-                input.value = token.value;
-                form.appendChild(input);
-            }
+        const acceptBtn = confirmCard.querySelector('.acceptButton');
+        const declineBtn = confirmCard.querySelector('.declineButton');
 
-            document.body.appendChild(form);
-            form.submit();
+        acceptBtn.addEventListener('click', () => deleteUser());
+        declineBtn.addEventListener('click', () => 
+        {
+            confirmCard.remove(); 
+            window.location.href = '@Url.Action("Profile", "User", new { area = "Management" })';
+        });
+    }
+
+    function deleteUser() {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '@Url.Action("Delete")';
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]');
+        if (token) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = '__RequestVerificationToken';
+            input.value = token.value;
+            form.appendChild(input);
         }
+
+        document.body.appendChild(form);
+        form.submit();
     }
 
     function calculateStrength(password) {

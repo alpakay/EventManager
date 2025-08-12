@@ -144,7 +144,7 @@
                 @if (Model.Event.IsEditMode)
                 {
                     <div class="secondary-actions">
-                        <button type="button" class="btn-modern btn-danger-modern" onclick="deleteEvent(@Model.Event.EventId, '@Model.Event.Name')">
+                        <button type="button" class="btn-modern btn-danger-modern" onclick="deleteClick(@Model.Event.EventId, '@Model.Event.Name')">
                             <i class="fas fa-trash me-2"></i>
                             Etkinliği Sil
                         </button>
@@ -209,34 +209,46 @@
         }
     });
 
+    function deleteClick(eventId, eventName){
+        window.dispatchEvent(new CustomEvent('confirm-card:render', {
+            detail: { itemId: eventId, itemName: eventName }
+        }));
+    }
+
     // Delete event function
     async function deleteEvent(eventId, eventName) {
-        if (confirm(`"${eventName}" etkinliğini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.`)) {
-            const form = document.createElement('form');
-            form.method = 'post';
-            form.action = '@Url.Action("Delete")';
-            const idInput = document.createElement('input');
-            idInput.type = 'hidden';
-            idInput.name = 'id';
-            idInput.value = eventId;
-            form.appendChild(idInput);
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '@Url.Action("Delete")';
+        
+        const idInput = document.createElement('input');
+        idInput.type = 'hidden';
+        idInput.name = 'id';
+        idInput.value = eventId;
+        form.appendChild(idInput);
 
-            const token = document.querySelector('input[name="__RequestVerificationToken"]');
-            if (token) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = '__RequestVerificationToken';
-                input.value = token.value;
-                form.appendChild(input);
-            }
+        const token = document.querySelector('input[name="__RequestVerificationToken"]');
+        if (token) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = '__RequestVerificationToken';
+            input.value = token.value;
+            form.appendChild(input);
+        }
 
-            document.body.appendChild(form);
-            form.submit();
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    window.addEventListener('confirm-card:result', (event) => {
+        const { accepted, itemId, itemName } = event.detail;
+        if (accepted) {
+            deleteEvent(itemId, itemName);
         }
         else{
             window.location.href = '@Url.Action("Index", "Event", new { area = "Management" })';
         }
-    }
+    });
 
     // Page load events
     document.addEventListener('DOMContentLoaded', function() {
