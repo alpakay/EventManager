@@ -1,0 +1,45 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: app_mssql
+    env_file: ../.env
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    ports: ["1433:1433"]
+    volumes:
+      - mssql_data:/var/opt/mssql
+      - ../db/dump:/var/opt/mssql/backup:ro
+    healthcheck:
+      test: ["CMD", "bash", "-lc", "</dev/tcp/localhost/1433"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  db-restore:
+    image: mcr.microsoft.com/mssql-tools:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: ../.env
+    entrypoint: ["/bin/bash","/restore.sh"]
+    volumes:
+      - ../db/init/restore.sh:/restore.sh:ro
+      - ../db/init/restore.sql:/restore.sql:ro
+      - ../db/dump:/var/opt/mssql/backup:ro
+
+  webmvc:
+    build:
+      context: ..
+      dockerfile: ops/Dockerfile.webmvc
+    depends_on:
+      db:
+        condition: service_healthy
+      db-restore:
+        condition: service_completed_successfully
+    env_file: ../.env
+    ports: ["5187:8080"]
+
+volumes:
+  mssql_data:
+

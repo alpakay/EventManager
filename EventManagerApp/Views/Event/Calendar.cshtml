@@ -1,3 +1,7 @@
+@{
+    ViewData["Title"] = "Etkinlik Takvimi";
+}
+
 <div class="calendar-container">
     <div class="calendar-header">
         <div class="header-content">
@@ -49,7 +53,7 @@
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 dayHeaderFormat: { weekday: 'long' },
                 dayMaxEventRows: 4,
-                firstDay: 2,
+                firstDay: 1,
             });
             calendar.render();
             const listViewButton = document.querySelector('.fc-toListViewButton-button');
