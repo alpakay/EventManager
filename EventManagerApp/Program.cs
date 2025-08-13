@@ -10,11 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<RepositoryContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-    sql => sql.MigrationsAssembly("EventManagerApp")
+    options.UseSqlServer(
+        cs,
+        sql => sql.MigrationsAssembly("EventManagerApp")
     )
 );
+
 //repositoryManager
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
@@ -43,10 +48,17 @@ builder.Services.AddAuthentication("CookieAuth")
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+if (app.Configuration.GetValue<bool>("RUN_MIGRATIONS", false))
+{
+    using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+        db.Database.Migrate();
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

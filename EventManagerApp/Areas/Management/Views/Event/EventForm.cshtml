@@ -5,6 +5,7 @@
     var action = Model.Event.IsEditMode ? "Edit" : "Create";
     var subtitle = Model.Event.IsEditMode ? "Etkinlik bilgilerini güncelleyin" : "Yeni bir etkinlik oluşturun";
     var iconClass = Model.Event.IsEditMode ? "fas fa-edit" : "fas fa-plus-circle";
+    ViewData["Title"] = title;
 }
 
 <div class="event-form-container">

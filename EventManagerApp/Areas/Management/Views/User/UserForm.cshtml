@@ -5,6 +5,7 @@
     var action = Model.IsEditMode ? "Update" : "Register";
     var subtitle = Model.IsEditMode ? "Bilgilerinizi güncelleyin" : "Yeni hesabınızı oluşturun";
     var iconClass = Model.IsEditMode ? "fas fa-user-edit" : "fas fa-user-plus";
+    ViewData["Title"] = title;
 }
 
 <div class="register-container">
