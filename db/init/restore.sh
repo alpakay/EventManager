@@ -6,6 +6,7 @@ DB_NAME="${DB_NAME:-EventManagerDb}"
 BAK_PATH="/var/opt/mssql/backup/${DB_NAME}.bak"
 
 # Parola: önce SA_PASSWORD, yoksa MSSQL_SA_PASSWORD
+echo "Deciding password..."
 PASS="${SA_PASSWORD:-${MSSQL_SA_PASSWORD:-}}"
 if [ -z "${PASS}" ]; then
   echo "ERROR: SA password not provided (set SA_PASSWORD or MSSQL_SA_PASSWORD in .env)"

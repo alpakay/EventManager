@@ -23,10 +23,20 @@ public class FileService : IFileService
             throw new ArgumentException("Geçersiz dosya türü. Geçerli türler: " + string.Join(", ", allowedExtensions));
         }
         var fileName = Guid.NewGuid() + extension;
-        var filePath = Path.Combine(rootPath, "uploads", fileName);
+        var filePath = Path.Combine(rootPath, "Uploads", fileName);
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             await file.CopyToAsync(stream);
+        }
+
+        if (OperatingSystem.IsLinux())
+        {
+            var mode =
+                UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute |
+                UnixFileMode.GroupRead | UnixFileMode.GroupExecute |
+                UnixFileMode.OtherRead | UnixFileMode.OtherExecute;
+
+            File.SetUnixFileMode(filePath, mode);
         }
         return fileName;
     }
@@ -37,7 +47,7 @@ public class FileService : IFileService
         {
             throw new ArgumentException("Dosya adı boş olamaz.");
         }
-        var filePath = Path.Combine(rootPath, "uploads", fileName);
+        var filePath = Path.Combine(rootPath, "Uploads", fileName);
         if (!File.Exists(filePath))
         {
             return;

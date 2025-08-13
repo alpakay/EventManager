@@ -55,7 +55,7 @@
                     {
                         <div class="event-list-item">
                             <div class="event-image-container-list">
-                                <img src="~/uploads/@eventItem.ImgUrl" alt="@eventItem.Name" class="event-image-list" />
+                                <img src="~/Uploads/@eventItem.ImgUrl" alt="@eventItem.Name" class="event-image-list" />
                                 <div class="event-status @(eventItem.StartDate > DateTime.Now ? "upcoming" : "past")">
                                     @if (eventItem.StartDate > DateTime.Now)
                                     {
