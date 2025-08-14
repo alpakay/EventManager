@@ -8,7 +8,7 @@ Event Manager, etkinliklerin listelenmesi, oluşturulması ve yönetilmesi için
 
 ## 🚀 Çalıştırma Yöntemleri
 
-### Yöntem 1: Docker ile Çalıştırma
+### Yöntem 1: Docker ile Çalıştırma (Tavsiye Edilen)
 
 **Gereksinimler**
 - Docker Desktop veya Docker Engine
@@ -44,7 +44,7 @@ Event Manager, etkinliklerin listelenmesi, oluşturulması ve yönetilmesi için
     ```
 
 **Adımlar**
-1. Uygulama dizinine geçin:
+1. ./EventManagerApp dizinine geçin:
 2. `appsettings.json` içindeki **DefaultConnection** değerini kendi SQL Server bağlantınıza göre ayarlayın.
 3. Veritabanını oluşturun/güncelleyin:
    ```bash
