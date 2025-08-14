@@ -18,7 +18,9 @@ Event Manager, etkinliklerin listelenmesi, oluşturulması ve yönetilmesi için
 2. Proje kök dizininde `.env` dosyası oluşturun. Örnek içerik için `.env.example` dosyasını kopyalayın:
 3. Gerekli gördüğünüz ortam değişkenlerini `.env` içinde güncelleyin (varsayılanlarla da çalışabilir).
 4. Proje kökünde aşağıdaki komutu çalıştırın:
+   ```bash
    docker compose --env-file .env -f ops/docker-compose.yml up --build
+   ```
 5. Build tamamlandıktan sonra uygulamaya şu adresten erişin:
    - http://localhost:5187
 
@@ -33,21 +35,29 @@ Event Manager, etkinliklerin listelenmesi, oluşturulması ve yönetilmesi için
 - .NET SDK
 - Entity Framework Core Tools  
   - Global kurulum:
+    ```bash
     dotnet tool install --global dotnet-ef
-
+    ```
   - Projeye özel kurulum:
+    ```bash
     dotnet tool install --local dotnet-ef
+    ```
 
 **Adımlar**
 1. Uygulama dizinine geçin:
 2. `appsettings.json` içindeki **DefaultConnection** değerini kendi SQL Server bağlantınıza göre ayarlayın.
 3. Veritabanını oluşturun/güncelleyin:
+   ```bash
    dotnet ef database update
+   ```
 4. Uygulamayı başlatın:
+   ```bash
    dotnet run
-   
+   ```
    veya geliştirme sırasında canlı yenileme için:
+   ```bash
    dotnet watch
+   ```
 
 ---
 
