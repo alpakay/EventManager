@@ -7,7 +7,7 @@
     <!-- Hero Section with Event Image -->
     <div class="event-hero">
         <div class="hero-image-container">
-            <img src="app/wwwroot/Uploads/@Model.MainEvent.ImgUrl" alt="@Model.MainEvent.Name" class="hero-image" />
+            <img src="~/Uploads/@Model.MainEvent.ImgUrl" alt="@Model.MainEvent.Name" class="hero-image" />
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
@@ -185,7 +185,7 @@
                 {
                     <div class="other-event-card">
                         <div class="event-image-container">
-                            <img src="app/wwwroot/Uploads/@eventItem.ImgUrl" alt="@eventItem.Name" class="event-image" />
+                            <img src="~/Uploads/@eventItem.ImgUrl" alt="@eventItem.Name" class="event-image" />
                             <div class="event-overlay">
                                 <a asp-area="" asp-controller="Event" asp-action="Details" asp-route-id="@eventItem.EventId" class="view-details-btn">
                                     <i class="fas fa-eye me-2"></i>

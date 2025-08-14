@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Entities.Dtos;
 using EventManagerApp.Areas.Management.ViewModels;
@@ -56,7 +57,8 @@ namespace EventManagerApp.Areas.Management.Controllers
             }
             catch (ArgumentException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message.Remove(ex.Message.IndexOf("(", StringComparison.Ordinal)));
+                var clean = Regex.Replace(ex.Message, @"\s*\(Parameter '.*'\)$", "");
+                ModelState.AddModelError(string.Empty, clean);
                 if (ex.ParamName == nameof(model.Event.Name))
                 {
                     var rootPath = _env.WebRootPath;
